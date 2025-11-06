@@ -40,6 +40,9 @@ public class ProjectRanking {
     @Column(name = "violations_resolved")
     private Integer violationsResolved = 0;
 
+    @Column(name = "violations_introduced")
+    private Integer violationsIntroduced = 0;
+
     @Column(name = "code_rock_score")
     private BigDecimal codeRockScore = BigDecimal.ZERO;
 
@@ -87,4 +90,3 @@ public class ProjectRanking {
         updatedAt = LocalDateTime.now();
     }
 }
-

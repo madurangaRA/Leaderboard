@@ -43,6 +43,9 @@ public class IndividualRanking {
     @Column(name = "violations_resolved")
     private Integer violationsResolved;
 
+    @Column(name = "violations_introduced")
+    private Integer violationsIntroduced;
+
     // Code Rock
     @Column(name = "code_rock_score")
     private BigDecimal codeRockScore;

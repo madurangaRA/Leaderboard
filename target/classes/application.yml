@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: sonarqube-dashboard
+
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/sonarqube_dashboard?useSSL=false&serverTimezone=UTC
+#    username: your_db_username
+#    password: your_db_password
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    hikari:
+#      maximum-pool-size: 10
+#      minimum-idle: 5
+#      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+
+# SonarQube Configuration
+sonarqube:
+  base-url: http://localhost:9000/
+  api-token: your_sonarqube_api_token_here
+  username: admin
+  password: Sm+0352222342
+
+  # Sync settings
+  sync:
+    enabled: true
+    cron: "0 0 2 * * ?"
+    page-size: 500
+    max-issues-per-request: 500
+    request-delay-ms: 100
+    historical-days: 90
+
+  # Which severities to track
+  severity-filter:
+    - BLOCKER
+    - CRITICAL
+    - MAJOR
+    - MINOR
+    - INFO
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.company.sonarqube: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# Server settings
+server:
+  port: 8080
+  servlet:
+    context-path: /

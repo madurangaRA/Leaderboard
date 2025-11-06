@@ -4,10 +4,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "project_metrics_daily")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,14 +40,15 @@ public class ProjectMetricsDaily {
     private Integer linesOfCode = 0;
 
     @Column(name = "reliability_rating", precision = 3, scale = 2)
-    private Double reliabilityRating = 0.0;
+    private BigDecimal reliabilityRating = BigDecimal.ZERO;
 
     @Column(name = "security_rating", precision = 3, scale = 2)
-    private Double securityRating = 0.0;
+    private BigDecimal securityRating = BigDecimal.ZERO;
 
     @Column(name = "maintainability_rating", precision = 3, scale = 2)
-    private Double maintainabilityRating = 0.0;
+    private BigDecimal maintainabilityRating = BigDecimal.ZERO;
 
+    @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 

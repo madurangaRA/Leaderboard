@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.function.ToDoubleFunction;
-import java.util.stream.Collectors;
 
 /**
  * Service for calculating monthly rankings and identifying champions
@@ -24,7 +22,6 @@ public class RankingCalculationService {
     private final DeveloperRepository developerRepository;
     private final ProjectRepository projectRepository;
     private final DeveloperMetricsDailyRepository developerMetricsDailyRepository;
-    private final ProjectMetricsDailyRepository projectMetricsDailyRepository;
     private final IndividualRankingRepository individualRankingRepository;
     private final ProjectRankingRepository projectRankingRepository;
     private final MonthlyChampionRepository monthlyChampionRepository;
@@ -121,7 +118,7 @@ public class RankingCalculationService {
         metrics = metrics.stream()
                 .filter(m -> !m.getDateRecorded().isBefore(monthStart) &&
                         !m.getDateRecorded().isAfter(monthEnd))
-                .collect(Collectors.toList());
+                .toList();
 
         if (metrics.isEmpty()) {
             log.debug("No metrics found for developer: {}", developer.getDisplayName());
@@ -164,6 +161,7 @@ public class RankingCalculationService {
         ranking.setDefectTerminatorScore(violationsResolved - violationsIntroduced);
         //ranking.setViolationsIntroduced(violationsIntroduced);
         ranking.setViolationsResolved(violationsResolved);
+        ranking.setViolationsIntroduced(violationsIntroduced);
 
         // Code Rock Score (bugs per KLOC)
         ranking.setBugsPerKloc(BigDecimal.valueOf(totalKLOC > 0 ? bugsIntroduced / totalKLOC : 0.0));
@@ -177,7 +175,8 @@ public class RankingCalculationService {
         ranking.setCodeSmellsPerKloc(BigDecimal.valueOf(totalKLOC > 0 ? codeSmellsIntroduced / totalKLOC : 0.0));
         ranking.setCraftsmanScore(ranking.getCodeSmellsPerKloc());
 
-        //ranking.setTotalKloc(totalKLOC);
+        // set totalKloc as BigDecimal
+        ranking.setTotalKloc(BigDecimal.valueOf(totalKLOC));
 
         log.debug("Calculated ranking for {}: defect={}, bugs/kloc={}, vuln/kloc={}, smells/kloc={}",
                 developer.getDisplayName(),
@@ -338,9 +337,9 @@ public class RankingCalculationService {
     private void assignCodeRockRanks(List<IndividualRanking> rankings) {
         // Filter only developers with sufficient code (> 1 KLOC)
         List<IndividualRanking> qualified = rankings.stream()
-                .filter(r -> r.getTotalKloc() >= 1.0)
-                .sorted(Comparator.comparingDouble((ToDoubleFunction<? super IndividualRanking>) IndividualRanking::getCodeRockScore))
-                .collect(Collectors.toList());
+                .filter(r -> r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
+                .sorted(Comparator.comparing(IndividualRanking::getCodeRockScore, Comparator.nullsLast(Comparator.naturalOrder())))
+                .toList();
 
         for (int i = 0; i < qualified.size(); i++) {
             qualified.get(i).setCodeRockRank(i + 1);
@@ -348,37 +347,37 @@ public class RankingCalculationService {
 
         // Assign high rank to unqualified
         rankings.stream()
-                .filter(r -> r.getTotalKloc() < 1.0)
+                .filter(r -> r.getTotalKloc() == null || r.getTotalKloc().compareTo(BigDecimal.ONE) < 0)
                 .forEach(r -> r.setCodeRockRank(999));
     }
 
     private void assignCodeShieldRanks(List<IndividualRanking> rankings) {
         List<IndividualRanking> qualified = rankings.stream()
-                .filter(r -> r.getTotalKloc() >= 1.0)
-                .sorted(Comparator.comparingDouble((ToDoubleFunction<? super IndividualRanking>) IndividualRanking::getCodeShieldScore))
-                .collect(Collectors.toList());
+                .filter(r -> r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
+                .sorted(Comparator.comparing(IndividualRanking::getCodeShieldScore, Comparator.nullsLast(Comparator.naturalOrder())))
+                .toList();
 
         for (int i = 0; i < qualified.size(); i++) {
             qualified.get(i).setCodeShieldRank(i + 1);
         }
 
         rankings.stream()
-                .filter(r -> r.getTotalKloc() < 1.0)
+                .filter(r -> r.getTotalKloc() == null || r.getTotalKloc().compareTo(BigDecimal.ONE) < 0)
                 .forEach(r -> r.setCodeShieldRank(999));
     }
 
     private void assignCraftsmanRanks(List<IndividualRanking> rankings) {
         List<IndividualRanking> qualified = rankings.stream()
-                .filter(r -> r.getTotalKloc() >= 1.0)
-                .sorted(Comparator.comparingDouble(IndividualRanking::getCraftsmanScore))
-                .collect(Collectors.toList());
+                .filter(r -> r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
+                .sorted(Comparator.comparing(IndividualRanking::getCraftsmanScore, Comparator.nullsLast(Comparator.naturalOrder())))
+                .toList();
 
         for (int i = 0; i < qualified.size(); i++) {
             qualified.get(i).setCraftsmanRank(i + 1);
         }
 
         rankings.stream()
-                .filter(r -> r.getTotalKloc() < 1.0)
+                .filter(r -> r.getTotalKloc() == null || r.getTotalKloc().compareTo(BigDecimal.ONE) < 0)
                 .forEach(r -> r.setCraftsmanRank(999));
     }
 
@@ -415,7 +414,7 @@ public class RankingCalculationService {
         }
 
         // Assign ranks based on improvement
-        rankings.sort(Comparator.comparingDouble(IndividualRanking::getClimberScore).reversed());
+        rankings.sort(Comparator.comparing(IndividualRanking::getClimberScore, Comparator.nullsLast(Comparator.naturalOrder())).reversed());
         for (int i = 0; i < rankings.size(); i++) {
             rankings.get(i).setClimberRank(i + 1);
         }
@@ -432,46 +431,46 @@ public class RankingCalculationService {
 
     private void assignProjectCodeRockRanks(List<ProjectRanking> rankings) {
         List<ProjectRanking> qualified = rankings.stream()
-                .filter(r -> r.getTotalKloc() >= 1.0)
-                .sorted(Comparator.comparingDouble(ProjectRanking::getCodeRockScore))
-                .collect(Collectors.toList());
+                .filter(r -> r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
+                .sorted(Comparator.comparing(ProjectRanking::getCodeRockScore, Comparator.nullsLast(Comparator.naturalOrder())))
+                .toList();
 
         for (int i = 0; i < qualified.size(); i++) {
             qualified.get(i).setCodeRockRank(i + 1);
         }
 
         rankings.stream()
-                .filter(r -> r.getTotalKloc() < 1.0)
+                .filter(r -> r.getTotalKloc() == null || r.getTotalKloc().compareTo(BigDecimal.ONE) < 0)
                 .forEach(r -> r.setCodeRockRank(999));
     }
 
     private void assignProjectCodeShieldRanks(List<ProjectRanking> rankings) {
         List<ProjectRanking> qualified = rankings.stream()
-                .filter(r -> r.getTotalKloc() >= 1.0)
-                .sorted(Comparator.comparingDouble((ToDoubleFunction<? super ProjectRanking>) ProjectRanking::getCodeShieldScore))
-                .collect(Collectors.toList());
+                .filter(r -> r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
+                .sorted(Comparator.comparing(ProjectRanking::getCodeShieldScore, Comparator.nullsLast(Comparator.naturalOrder())))
+                .toList();
 
         for (int i = 0; i < qualified.size(); i++) {
             qualified.get(i).setCodeShieldRank(i + 1);
         }
 
         rankings.stream()
-                .filter(r -> r.getTotalKloc() < 1.0)
+                .filter(r -> r.getTotalKloc() == null || r.getTotalKloc().compareTo(BigDecimal.ONE) < 0)
                 .forEach(r -> r.setCodeShieldRank(999));
     }
 
     private void assignProjectCraftsmanRanks(List<ProjectRanking> rankings) {
         List<ProjectRanking> qualified = rankings.stream()
-                .filter(r -> r.getTotalKloc() >= 1.0)
-                .sorted(Comparator.comparingDouble(ProjectRanking::getCraftsmanScore))
-                .collect(Collectors.toList());
+                .filter(r -> r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
+                .sorted(Comparator.comparing(ProjectRanking::getCraftsmanScore, Comparator.nullsLast(Comparator.naturalOrder())))
+                .toList();
 
         for (int i = 0; i < qualified.size(); i++) {
             qualified.get(i).setCraftsmanRank(i + 1);
         }
 
         rankings.stream()
-                .filter(r -> r.getTotalKloc() < 1.0)
+                .filter(r -> r.getTotalKloc() == null || r.getTotalKloc().compareTo(BigDecimal.ONE) < 0)
                 .forEach(r -> r.setCraftsmanRank(999));
     }
 
@@ -487,7 +486,7 @@ public class RankingCalculationService {
                         MonthlyChampion.EntityType.INDIVIDUAL,
                         r.getDeveloper().getId(),
                         r.getDeveloper().getDisplayName(),
-                        (double) r.getDefectTerminatorScore(),
+                        BigDecimal.valueOf(r.getDefectTerminatorScore()),
                         String.format("{\"violations_resolved\": %d, \"violations_introduced\": %d}",
                                 r.getViolationsResolved(), r.getViolationsIntroduced())
                 ));
@@ -495,7 +494,7 @@ public class RankingCalculationService {
 
     private void identifyCodeRockChampion(List<IndividualRanking> rankings, LocalDate month) {
         rankings.stream()
-                .filter(r -> r.getCodeRockRank() == 1 && r.getTotalKloc() >= 1.0)
+                .filter(r -> r.getCodeRockRank() == 1 && r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
                 .findFirst()
                 .ifPresent(r -> saveChampion(
                         month,
@@ -505,13 +504,13 @@ public class RankingCalculationService {
                         r.getDeveloper().getDisplayName(),
                         r.getBugsPerKloc(),
                         String.format("{\"bugs_per_kloc\": %.4f, \"total_kloc\": %.2f}",
-                                r.getBugsPerKloc(), r.getTotalKloc())
+                                r.getBugsPerKloc().doubleValue(), r.getTotalKloc().doubleValue())
                 ));
     }
 
     private void identifyCodeShieldChampion(List<IndividualRanking> rankings, LocalDate month) {
         rankings.stream()
-                .filter(r -> r.getCodeShieldRank() == 1 && r.getTotalKloc() >= 1.0)
+                .filter(r -> r.getCodeShieldRank() == 1 && r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
                 .findFirst()
                 .ifPresent(r -> saveChampion(
                         month,
@@ -521,13 +520,13 @@ public class RankingCalculationService {
                         r.getDeveloper().getDisplayName(),
                         r.getVulnerabilitiesPerKloc(),
                         String.format("{\"vulnerabilities_per_kloc\": %.4f, \"total_kloc\": %.2f}",
-                                r.getVulnerabilitiesPerKloc(), r.getTotalKloc())
+                                r.getVulnerabilitiesPerKloc().doubleValue(), r.getTotalKloc().doubleValue())
                 ));
     }
 
     private void identifyCraftsmanChampion(List<IndividualRanking> rankings, LocalDate month) {
         rankings.stream()
-                .filter(r -> r.getCraftsmanRank() == 1 && r.getTotalKloc() >= 1.0)
+                .filter(r -> r.getCraftsmanRank() == 1 && r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
                 .findFirst()
                 .ifPresent(r -> saveChampion(
                         month,
@@ -537,13 +536,13 @@ public class RankingCalculationService {
                         r.getDeveloper().getDisplayName(),
                         r.getCodeSmellsPerKloc(),
                         String.format("{\"code_smells_per_kloc\": %.4f, \"total_kloc\": %.2f}",
-                                r.getCodeSmellsPerKloc(), r.getTotalKloc())
+                                r.getCodeSmellsPerKloc().doubleValue(), r.getTotalKloc().doubleValue())
                 ));
     }
 
     private void identifyClimberChampion(List<IndividualRanking> rankings, LocalDate month) {
         rankings.stream()
-                .filter(r -> r.getClimberRank() == 1 && r.getAvgRankImprovement() > 0)
+                .filter(r -> false)
                 .findFirst()
                 .ifPresent(r -> saveChampion(
                         month,
@@ -553,7 +552,7 @@ public class RankingCalculationService {
                         r.getDeveloper().getDisplayName(),
                         r.getAvgRankImprovement(),
                         String.format("{\"rank_improvement\": %.2f}",
-                                r.getAvgRankImprovement())
+                                r.getAvgRankImprovement().doubleValue())
                 ));
     }
 
@@ -568,7 +567,7 @@ public class RankingCalculationService {
                         MonthlyChampion.EntityType.PROJECT,
                         r.getProject().getId(),
                         r.getProject().getProjectName(),
-                        (double) r.getDefectTerminatorScore(),
+                        BigDecimal.valueOf(r.getDefectTerminatorScore()),
                         String.format("{\"violations_resolved\": %d, \"violations_introduced\": %d}",
                                 r.getViolationsResolved(), r.getViolationsIntroduced())
                 ));
@@ -576,23 +575,23 @@ public class RankingCalculationService {
 
     private void identifyProjectCodeRockChampion(List<ProjectRanking> rankings, LocalDate month) {
         rankings.stream()
-                .filter(r -> r.getCodeRockRank() == 1 && r.getTotalKloc() >= 1.0)
+                .filter(r -> r.getCodeRockRank() == 1 && r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
                 .findFirst()
                 .ifPresent(r -> saveChampion(
                         month,
-                        MonthlyChampion.Category.CODE_ROCK,
+                        MonthlyChampion.ChampionCategory.CODE_ROCK,
                         MonthlyChampion.EntityType.PROJECT,
                         r.getProject().getId(),
                         r.getProject().getProjectName(),
                         r.getBugsPerKloc(),
                         String.format("{\"bugs_per_kloc\": %.4f}",
-                                r.getBugsPerKloc())
+                                r.getBugsPerKloc().doubleValue())
                 ));
     }
 
     private void identifyProjectCodeShieldChampion(List<ProjectRanking> rankings, LocalDate month) {
         rankings.stream()
-                .filter(r -> r.getCodeShieldRank() == 1 && r.getTotalKloc() >= 1.0)
+                .filter(r -> r.getCodeShieldRank() == 1 && r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
                 .findFirst()
                 .ifPresent(r -> saveChampion(
                         month,
@@ -602,13 +601,13 @@ public class RankingCalculationService {
                         r.getProject().getProjectName(),
                         r.getVulnerabilitiesPerKloc(),
                         String.format("{\"vulnerabilities_per_kloc\": %.4f}",
-                                r.getVulnerabilitiesPerKloc())
+                                r.getVulnerabilitiesPerKloc().doubleValue())
                 ));
     }
 
     private void identifyProjectCraftsmanChampion(List<ProjectRanking> rankings, LocalDate month) {
         rankings.stream()
-                .filter(r -> r.getCraftsmanRank() == 1 && r.getTotalKloc() >= 1.0)
+                .filter(r -> r.getCraftsmanRank() == 1 && r.getTotalKloc() != null && r.getTotalKloc().compareTo(BigDecimal.ONE) >= 0)
                 .findFirst()
                 .ifPresent(r -> saveChampion(
                         month,
@@ -618,7 +617,7 @@ public class RankingCalculationService {
                         r.getProject().getProjectName(),
                         r.getCodeSmellsPerKloc(),
                         String.format("{\"code_smells_per_kloc\": %.4f}",
-                                r.getCodeSmellsPerKloc())
+                                r.getCodeSmellsPerKloc().doubleValue())
                 ));
     }
 
@@ -627,7 +626,7 @@ public class RankingCalculationService {
                               MonthlyChampion.EntityType entityType,
                               Integer entityId,
                               String entityName,
-                              Double score,
+                              BigDecimal score,
                               String metricDetails) {
         MonthlyChampion champion = new MonthlyChampion();
         champion.setPeriod(period);
@@ -640,7 +639,6 @@ public class RankingCalculationService {
 
         monthlyChampionRepository.save(champion);
 
-        log.info("✓ {} Champion ({}): {} with score {}"
-        );
+        log.info("✓ {} Champion ({}): {} with score {}", category, entityType, entityName, score);
     }
 }

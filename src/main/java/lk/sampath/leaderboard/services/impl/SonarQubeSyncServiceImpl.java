@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -452,9 +453,9 @@ public class SonarQubeSyncServiceImpl implements SonarQubeSyncService {
         metrics.setBugsCount(parseInt(measureMap.get("bugs"), 0));
         metrics.setVulnerabilitiesCount(parseInt(measureMap.get("vulnerabilities"), 0));
         metrics.setCodeSmellsCount(parseInt(measureMap.get("code_smells"), 0));
-        metrics.setReliabilityRating(parseDouble(measureMap.get("reliability_rating"), 0.0));
-        metrics.setSecurityRating(parseDouble(measureMap.get("security_rating"), 0.0));
-        metrics.setMaintainabilityRating(parseDouble(measureMap.get("sqale_rating"), 0.0));
+        metrics.setReliabilityRating(parseDoubledouble(measureMap.get("reliability_rating"), 0.0));
+        metrics.setSecurityRating(parseDoubledouble(measureMap.get("security_rating"), 0.0));
+        metrics.setMaintainabilityRating(parseDoubledouble(measureMap.get("sqale_rating"), 0.0));
 
         projectMetricsDailyRepository.save(metrics);
 
@@ -661,4 +662,17 @@ public class SonarQubeSyncServiceImpl implements SonarQubeSyncService {
             return defaultValue;
         }
     }
+
+    private BigDecimal parseDoubledouble(String value, double defaultValue) {
+        if (value == null || value.isEmpty()) {
+            return BigDecimal.valueOf(defaultValue);
+        }
+        try {
+            return new BigDecimal(value);
+        } catch (Exception e) {
+            log.trace("Could not parse BigDecimal: {}", value);
+            return BigDecimal.valueOf(defaultValue);
+        }
+    }
+
 }

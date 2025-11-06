@@ -7,7 +7,6 @@ lk/sampath/leaderboard/entity/IndividualRanking$IndividualRankingBuilder.class
 lk/sampath/leaderboard/dto/SonarMeasuresHistoryResponse.class
 lk/sampath/leaderboard/entity/Developer.class
 lk/sampath/leaderboard/entity/SyncLog.class
-lk/sampath/leaderboard/entity/MonthlyChampions$EntityType.class
 lk/sampath/leaderboard/services/impl/DashboardServiceImpl.class
 lk/sampath/leaderboard/dto/SonarMeasuresHistoryResponse$Measure.class
 lk/sampath/leaderboard/dto/SonarProjectSearchResponse$Paging.class
@@ -16,11 +15,11 @@ lk/sampath/leaderboard/services/AdminService.class
 lk/sampath/leaderboard/util/MetricsCalculator.class
 lk/sampath/leaderboard/services/impl/AdminServiceImpl.class
 lk/sampath/leaderboard/dto/SonarIssuesSearchResponse$IssueDetail.class
-lk/sampath/leaderboard/entity/MonthlyChampions.class
 lk/sampath/leaderboard/services/impl/DeveloperServiceImpl.class
 lk/sampath/leaderboard/entity/Issue.class
 lk/sampath/leaderboard/dto/DashboardDTO.class
 lk/sampath/leaderboard/dto/SonarIssuesSearchResponse$IssueDetail$TextRange.class
+lk/sampath/leaderboard/services/RankingCalculationService.class
 lk/sampath/leaderboard/dto/SonarMeasuresResponse$Measure.class
 lk/sampath/leaderboard/dto/DashboardDTO$DashboardDTOBuilder.class
 lk/sampath/leaderboard/entity/Issue$Severity.class
@@ -38,7 +37,6 @@ lk/sampath/leaderboard/entity/DeveloperMetricsDaily.class
 lk/sampath/leaderboard/entity/SyncLog$SyncType.class
 lk/sampath/leaderboard/util/DateUtils.class
 lk/sampath/leaderboard/entity/Issue$IssueType.class
-lk/sampath/leaderboard/entity/MonthlyChampions$ChampionCategory.class
 lk/sampath/leaderboard/dto/RankingPositionDTO$RankingPositionDTOBuilder.class
 lk/sampath/leaderboard/dto/ChampionDTO.class
 lk/sampath/leaderboard/dto/SonarMeasuresHistoryResponse$History.class
@@ -66,7 +64,6 @@ lk/sampath/leaderboard/services/SonarQubeSyncService.class
 lk/sampath/leaderboard/entity/ProjectRanking$ProjectRankingBuilder.class
 lk/sampath/leaderboard/services/DashboardService.class
 lk/sampath/leaderboard/dto/SyncResponse$SyncStats.class
-lk/sampath/leaderboard/entity/MonthlyChampions$MonthlyChampionsBuilder.class
 lk/sampath/leaderboard/repository/SyncLogRepository.class
 lk/sampath/leaderboard/repository/DeveloperMetricsDailyRepository.class
 lk/sampath/leaderboard/dto/SonarProjectSearchResponse$Component.class
@@ -77,4 +74,5 @@ lk/sampath/leaderboard/services/DeveloperService.class
 lk/sampath/leaderboard/services/ProjectService.class
 lk/sampath/leaderboard/dto/SonarIssuesSearchResponse.class
 lk/sampath/leaderboard/config/DataSourceConfig.class
+lk/sampath/leaderboard/controller/RankingController.class
 lk/sampath/leaderboard/entity/ProjectMetricsDaily.class
