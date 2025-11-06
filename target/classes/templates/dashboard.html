@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Champions Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/fontawesome/css/all.min.css}">
+</head>
+<body>
+<div class="container">
+    <!-- Header Section -->
+    <header class="header">
+        <h1>🏆 Code Champions</h1>
+    </header>
+
+    <!-- Error Message -->
+    <div th:if="${error}" class="error-message">
+        <strong>Error:</strong>
+        <span th:text="${error}">An error occurred</span>
+    </div>
+
+    <!-- Champions Carousel Section -->
+    <section class="champions-section" th:if="${hasChampions}">
+        <h2 class="section-title">🏅 This Month's Champions</h2>
+
+        <div class="carousel-container">
+            <div th:replace="~{fragments/champion-slides :: champion-slides}"></div>
+        </div>
+
+        <div class="carousel-dots" th:replace="~{fragments/champion-slides :: carousel-dots}"></div>
+    </section>
+
+    <!-- No Champions Data Message -->
+    <div class="no-data" th:if="${!hasChampions}">
+        <p>No championship data available for this period.</p>
+    </div>
+
+    <!-- Leaderboards Section -->
+    <div class="leaderboards-container" th:if="${hasLeaderboards}">
+        <div th:replace="~{fragments/leaderboard-tables :: individual-leaderboard}"></div>
+        <div th:replace="~{fragments/leaderboard-tables :: project-leaderboard}"></div>
+    </div>
+
+    <!-- No Leaderboard Data Message -->
+    <div class="no-data" th:if="${!hasLeaderboards}">
+        <p>No leaderboard data available yet.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="last-updated">
+        <i class="fas fa-user"></i>
+        <small>Last updated: <time th:text="${lastUpdated}">2025-01-01 12:00:00</time></small>
+    </footer>
+</div>
+
+<script th:src="@{/js/carousel.js}"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Individual Leaderboard Fragment -->
+<th:block th:fragment="individual-leaderboard">
+    <div class="leaderboard-section" th:if="${not #lists.isEmpty(individualAchievements)}">
+        <h2 class="section-title">👤 Individual Achievements</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Achievement</th>
+                <th>#1</th>
+                <th>#2</th>
+                <th>#3</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="achievement : ${individualAchievements}">
+                <td class="achievement-name"
+                    th:text="${achievement.achievementName}">
+                    Achievement Name
+                </td>
+
+                <!-- First Place -->
+                <td th:replace="~{fragments/leaderboard-tables :: ranking-cell(${achievement.first}, '🥇')}"></td>
+
+                <!-- Second Place -->
+                <td th:replace="~{fragments/leaderboard-tables :: ranking-cell(${achievement.second}, '🥈')}"></td>
+
+                <!-- Third Place -->
+                <td th:replace="~{fragments/leaderboard-tables :: ranking-cell(${achievement.third}, '🥉')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</th:block>
+
+<!-- Project Leaderboard Fragment -->
+<th:block th:fragment="project-leaderboard">
+    <div class="leaderboard-section" th:if="${not #lists.isEmpty(projectAchievements)}">
+        <h2 class="section-title"><i class="fas fa-chart-bar"></i>  Project Achievements</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Achievement</th>
+                <th>#1</th>
+                <th>#2</th>
+                <th>#3</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="achievement : ${projectAchievements}">
+                <td class="achievement-name"
+                    th:text="${achievement.achievementName}">
+                    Achievement Name
+                </td>
+
+                <!-- First Place -->
+                <td th:replace="~{fragments/leaderboard-tables :: ranking-cell(${achievement.first}, '🥇')}"></td>
+
+                <!-- Second Place -->
+                <td th:replace="~{fragments/leaderboard-tables :: ranking-cell(${achievement.second}, '🥈')}"></td>
+
+                <!-- Third Place -->
+                <td th:replace="~{fragments/leaderboard-tables :: ranking-cell(${achievement.third}, '🥉')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</th:block>
+
+<!-- Ranking Cell Fragment (Reusable Component) -->
+<th:block th:fragment="ranking-cell(participant, medal)">
+    <td th:if="${participant != null}">
+        <span class="rank-cell" th:text="${medal}">🥇</span>
+        <span th:text="${participant.name}">Name</span>
+        <span class="metric-value"
+              th:text="'(' + ${participant.score} + ')'">
+                (0)
+            </span>
+    </td>
+    <td th:if="${participant == null}">-</td>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Champion Slides Fragment -->
+<th:block th:fragment="champion-slides">
+    <!-- Defect Terminator -->
+    <div class="carousel-slide active" th:if="${defectTerminator != null}">
+        <div class="champion-card">
+            <h3>🛡️ Defect Terminator</h3>
+            <div class="winner" th:text="${defectTerminator.name}">Developer Name</div>
+            <div class="metric">
+                <span th:text="${defectTerminator.value}">+12</span>
+                <span>violations eliminatedz</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Code Rock -->
+    <div class="carousel-slide" th:if="${codeRock != null}">
+        <div class="champion-card">
+            <h3>🪨 The Code Rock</h3>
+            <div class="winner" th:text="${codeRock.name}">Developer Name</div>
+            <div class="metric">
+                <span th:text="${codeRock.value}">0.3</span>
+                <span>reliability violations/KLOC</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Code Shield -->
+    <div class="carousel-slide" th:if="${codeShield != null}">
+        <div class="champion-card">
+            <h3>🛡️ The Code Shield</h3>
+            <div class="winner" th:text="${codeShield.name}">Developer Name</div>
+            <div class="metric">
+                <span th:text="${codeShield.value}">0.1</span>
+                <span>security violations/KLOC</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Craftsman -->
+    <div class="carousel-slide" th:if="${craftsman != null}">
+        <div class="champion-card">
+            <h3>🔧 The Craftsman</h3>
+            <div class="winner" th:text="${craftsman.name}">Developer Name</div>
+            <div class="metric">
+                <span th:text="${craftsman.value}">0.2</span>
+                <span>maintainability violations/KLOC</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Climber -->
+    <div class="carousel-slide" th:if="${climber != null}">
+        <div class="champion-card">
+            <h3>📈 The Climber</h3>
+            <div class="winner" th:text="${climber.name}">Developer Name</div>
+            <div class="metric">
+                <span th:text="${climber.value}">+14</span>
+                <span>ranking positions improved</span>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<!-- Carousel Dots Fragment -->
+<th:block th:fragment="carousel-dots">
+        <span class="dot active"
+              onclick="currentSlide(0)"
+              th:if="${defectTerminator != null}"></span>
+    <span class="dot"
+          onclick="currentSlide(1)"
+          th:if="${codeRock != null}"></span>
+    <span class="dot"
+          onclick="currentSlide(2)"
+          th:if="${codeShield != null}"></span>
+    <span class="dot"
+          onclick="currentSlide(3)"
+          th:if="${craftsman != null}"></span>
+    <span class="dot"
+          onclick="currentSlide(4)"
+          th:if="${climber != null}"></span>
+</th:block>
+</body>
+</html>

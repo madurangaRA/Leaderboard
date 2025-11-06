@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sample Maven toolchains file for building with JDK 17.
+  Instructions: copy this file to ~/.m2/toolchains.xml and update jdkHome to the JDK 17 installation on your machine.
+  Example jdkHome on macOS (Temurin): /Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
+-->
+<toolchains xmlns="http://maven.apache.org/TOOLCHAINS/1.1.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/TOOLCHAINS/1.1.0
+                                https://maven.apache.org/xsd/toolchains-1.1.0.xsd">
+  <toolchain>
+    <type>jdk</type>
+    <provides>
+      <version>17</version>
+

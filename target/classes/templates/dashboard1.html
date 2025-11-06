@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Champions Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            color: #e5e5e5;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 30px; padding: 20px 0; }
+        .header h1 {
+            font-size: 2.8em; color: #f37c1e; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px;
+        }
+        .header p { font-size: 1.1em; color: #b0b0b0; font-weight: 300; }
+        .stat-value { font-size: 1.8em; color: #f37c1e; font-weight: 700; }
+        .champions-section {
+            background: linear-gradient(135deg, #252525 0%, #1a1a1a 100%);
+            border-radius: 12px; padding: 25px; margin-bottom: 25px;
+            border: 1px solid #3a3a3a; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .section-title {
+            font-size: 1.6em; color: #f37c1e; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 10px; font-weight: 600;
+        }
+        .carousel-container {
+            position: relative; overflow: hidden; height: 180px; border-radius: 8px;
+        }
+        .carousel-slide {
+            display: none; height: 100%;
+            align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.6s ease-in-out;
+        }
+        .carousel-slide.active {
+            display: flex; opacity: 1;
+        }
+        .champion-card {
+            background: linear-gradient(135deg, #f37c1e 0%, #ff9d4d 100%);
+            border-radius: 10px; padding: 25px 40px; color: #252525;
+            width: 100%; max-width: 700px; text-align: center;
+            box-shadow: 0 8px 20px rgba(243, 124, 30, 0.3);
+        }
+        .champion-card h3 { font-size: 1.3em; margin-bottom: 10px; font-weight: 600; }
+        .champion-card .winner { font-size: 2.5em; font-weight: 700; margin: 10px 0; }
+        .champion-card .metric { font-size: 1.1em; font-weight: 500; }
+        .carousel-dots {
+            text-align: center; margin-top: 15px; display: flex; justify-content: center; gap: 8px;
+        }
+        .dot {
+            height: 10px; width: 10px; background-color: #3a3a3a;
+            border-radius: 50%; cursor: pointer; transition: all 0.3s;
+        }
+        .dot:hover { background-color: #666; }
+        .dot.active { background-color: #f37c1e; transform: scale(1.3); }
+        .leaderboards-container { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .leaderboard-section {
+            background: linear-gradient(135deg, #252525 0%, #1a1a1a 100%);
+            border-radius: 12px; padding: 25px; border: 1px solid #3a3a3a;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); overflow-x: auto;
+        }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        thead { background: #f37c1e; color: #252525; }
+        th, td { padding: 14px 12px; text-align: left; font-size: 0.95em; }
+        th { font-weight: 700; text-transform: uppercase; font-size: 0.85em; letter-spacing: 0.8px; }
+        tbody tr { border-bottom: 1px solid #2a2a2a; transition: background-color 0.2s; }
+        tbody tr:hover { background: rgba(243, 124, 30, 0.08); }
+        tbody tr td { color: #e5e5e5; }
+        .rank-cell { font-weight: bold; font-size: 1.4em; margin-right: 5px; }
+        .achievement-name { font-weight: 600; color: #f37c1e; }
+        .metric-value { font-weight: 600; color: #4ade80; margin-left: 5px; }
+        tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.01); }
+        .last-updated {
+            text-align: right; color: #666; font-size: 0.85em;
+            margin-top: 20px; padding-top: 15px; border-top: 1px solid #3a3a3a;
+        }
+        .error-message {
+            background: #dc2626; color: white; padding: 15px;
+            border-radius: 8px; margin-bottom: 20px;
+        }
+        @media (max-width: 1200px) { .leaderboards-container { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .champion-card { padding: 15px 20px; }
+            .champion-card .winner { font-size: 2em; }
+            table { font-size: 0.85em; }
+            th, td { padding: 10px 8px; }
+        }
+        .no-data { text-align: center; padding: 40px 20px; color: #999; }
+        .loading { display: flex; justify-content: center; align-items: center; height: 200px; color: #999; }
+        .spinner {
+            border: 4px solid #3a3a3a; border-top: 4px solid #f37c1e;
+            border-radius: 50%; width: 40px; height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header"><h1>🏆 Code Champions</h1></div>
+
+    <div th:if="${error}" class="error-message">
+        <strong>Error:</strong> <span th:text="${error}">An error occurred</span>
+    </div>
+
+    <div class="champions-section" th:if="${defectTerminator != null or codeRock != null or codeShield != null or craftsman != null or climber != null}">
+        <h2 class="section-title">🏅 This Month's Champions</h2>
+        <div class="carousel-container">
+            <div class="carousel-slide active" th:if="${defectTerminator != null}">
+                <div class="champion-card">
+                    <h3>🛡️ Defect Terminator</h3>
+                    <div class="winner" th:text="${defectTerminator.name}">Developer Name</div>
+                    <div class="metric"><span th:text="${defectTerminator.value}">+12</span> <span>violations eliminated</span></div>
+                </div>
+            </div>
+            <div class="carousel-slide" th:if="${codeRock != null}">
+                <div class="champion-card">
+                    <h3>🪨 The Code Rock</h3>
+                    <div class="winner" th:text="${codeRock.name}">Developer Name</div>
+                    <div class="metric"><span th:text="${codeRock.value}">0.3</span> <span>reliability violations/KLOC</span></div>
+                </div>
+            </div>
+            <div class="carousel-slide" th:if="${codeShield != null}">
+                <div class="champion-card">
+                    <h3>🛡️ The Code Shield</h3>
+                    <div class="winner" th:text="${codeShield.name}">Developer Name</div>
+                    <div class="metric"><span th:text="${codeShield.value}">0.1</span> <span>security violations/KLOC</span></div>
+                </div>
+            </div>
+            <div class="carousel-slide" th:if="${craftsman != null}">
+                <div class="champion-card">
+                    <h3>🔧 The Craftsman</h3>
+                    <div class="winner" th:text="${craftsman.name}">Developer Name</div>
+                    <div class="metric"><span th:text="${craftsman.value}">0.2</span> <span>maintainability violations/KLOC</span></div>
+                </div>
+            </div>
+            <div class="carousel-slide" th:if="${climber != null}">
+                <div class="champion-card">
+                    <h3>📈 The Climber</h3>
+                    <div class="winner" th:text="${climber.name}">Developer Name</div>
+                    <div class="metric"><span th:text="${climber.value}">+14</span> <span>ranking positions improved</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-dots">
+            <span class="dot active" onclick="currentSlide(0)" th:if="${defectTerminator != null}"></span>
+            <span class="dot" onclick="currentSlide(1)" th:if="${codeRock != null}"></span>
+            <span class="dot" onclick="currentSlide(2)" th:if="${codeShield != null}"></span>
+            <span class="dot" onclick="currentSlide(3)" th:if="${craftsman != null}"></span>
+            <span class="dot" onclick="currentSlide(4)" th:if="${climber != null}"></span>
+        </div>
+    </div>
+
+    <div class="no-data" th:if="${defectTerminator == null and codeRock == null}">
+        <p>No championship data available for this period.</p>
+    </div>
+
+    <div class="leaderboards-container" th:if="${not #lists.isEmpty(individualAchievements) or not #lists.isEmpty(projectAchievements)}">
+        <div class="leaderboard-section" th:if="${not #lists.isEmpty(individualAchievements)}">
+            <h2 class="section-title">👤 Individual Achievements</h2>
+            <table>
+                <thead><tr><th>Achievement</th><th>#1</th><th>#2</th><th>#3</th></tr></thead>
+                <tbody>
+                <tr th:each="achievement : ${individualAchievements}">
+                    <td class="achievement-name" th:text="${achievement.achievementName}">Achievement Name</td>
+                    <td th:if="${achievement.first != null}"><span class="rank-cell">🥇</span><span th:text="${achievement.first.name}">Developer</span><span class="metric-value" th:text="'(' + ${achievement.first.score} + ')'">(+12)</span></td>
+                    <td th:if="${achievement.first == null}">-</td>
+                    <td th:if="${achievement.second != null}"><span class="rank-cell">🥈</span><span th:text="${achievement.second.name}">Developer</span><span class="metric-value" th:text="'(' + ${achievement.second.score} + ')'">(+9)</span></td>
+                    <td th:if="${achievement.second == null}">-</td>
+                    <td th:if="${achievement.third != null}"><span class="rank-cell">🥉</span><span th:text="${achievement.third.name}">Developer</span><span class="metric-value" th:text="'(' + ${achievement.third.score} + ')'">(+7)</span></td>
+                    <td th:if="${achievement.third == null}">-</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="leaderboard-section" th:if="${not #lists.isEmpty(projectAchievements)}">
+            <h2 class="section-title"> 🗂️Project Achievements</h2>
+            <table>
+                <thead><tr><th>Achievement</th><th>#1</th><th>#2</th><th>#3</th></tr></thead>
+                <tbody>
+                <tr th:each="achievement : ${projectAchievements}">
+                    <td class="achievement-name" th:text="${achievement.achievementName}">Achievement Name</td>
+                    <td th:if="${achievement.first != null}"><span class="rank-cell">🥇</span><span th:text="${achievement.first.name}">Project</span><span class="metric-value" th:text="'(' + ${achievement.first.score} + ')'">(+12)</span></td>
+                    <td th:if="${achievement.first == null}">-</td>
+                    <td th:if="${achievement.second != null}"><span class="rank-cell">🥈</span><span th:text="${achievement.second.name}">Project</span><span class="metric-value" th:text="'(' + ${achievement.second.score} + ')'">(+9)</span></td>
+                    <td th:if="${achievement.second == null}">-</td>
+                    <td th:if="${achievement.third != null}"><span class="rank-cell">🥉</span><span th:text="${achievement.third.name}">Project</span><span class="metric-value" th:text="'(' + ${achievement.third.score} + ')'">(+7)</span></td>
+                    <td th:if="${achievement.third == null}">-</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="no-data" th:if="${#lists.isEmpty(individualAchievements) and #lists.isEmpty(projectAchievements)}">
+        <p>No leaderboard data available yet.</p>
+    </div>
+
+    <div class="last-updated">
+        <small>Last updated: <span th:text="${lastUpdated}">2024-01-01 12:00:00</span></small>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    let slideIndex = 0;
+    let autoSlideInterval;
+
+    function showSlide(n) {
+        const slides = document.getElementsByClassName("carousel-slide");
+        const dots = document.getElementsByClassName("dot");
+        if (slides.length === 0) return;
+        if (n >= slides.length) n = 0;
+        if (n < 0) n = slides.length - 1;
+        slideIndex = n;
+        for (let i = 0; i < slides.length; i++) slides[i].classList.remove("active");
+        for (let i = 0; i < dots.length; i++) dots[i].classList.remove("active");
+        slides[slideIndex].classList.add("active");
+        if (dots.length > slideIndex) dots[slideIndex].classList.add("active");
+    }
+
+    function currentSlide(n) {
+        showSlide(n);
+        resetAutoSlide();
+    }
+
+    function nextSlide() {
+        showSlide(slideIndex + 1);
+    }
+
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(nextSlide, 5000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.getElementsByClassName("carousel-slide");
+        if (slides.length > 0) {
+            showSlide(slideIndex);
+            autoSlideInterval = setInterval(nextSlide, 5000);
+        }
+    });
+</script>
+</body>
+</html>
