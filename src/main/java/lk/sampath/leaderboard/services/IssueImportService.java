@@ -288,10 +288,25 @@ public class IssueImportService {
                 .orElseGet(() -> {
                     Developer developer = new Developer();
                     developer.setAuthorKey(authorKey);
-                    // Prefer exact display name from SonarQube when available
-                    String displayName = sonarQubeClient.fetchUserDisplayName(authorKey)
+
+                    // Try to fetch full user details (name + email) from SonarQube
+                    Optional<lk.sampath.leaderboard.dto.SonarUserSearchResponse.User> userOpt =
+                            sonarQubeClient.fetchUserDetails(authorKey);
+
+                    String displayName = userOpt
+                            .map(u -> (u.getName() != null && !u.getName().isBlank()) ? u.getName() : u.getLogin())
                             .orElse(formatDisplayName(authorKey));
                     developer.setDisplayName(displayName);
+
+                    Developer finalDeveloper = developer;
+                    userOpt.map(lk.sampath.leaderboard.dto.SonarUserSearchResponse.User::getEmail)
+                            .filter(e -> e != null && !e.isBlank())
+                            .filter(this::looksLikeEmail)
+                            .ifPresentOrElse(email -> {
+                                finalDeveloper.setEmail(email);
+                                log.debug("Set email for developer {} -> {}", displayName, email);
+                            }, () -> log.debug("No valid email for authorKey {} (sonar result: {}). Skipping email set.", authorKey, userOpt.map(u -> u.getEmail()).orElse(null)));
+
                     developer.setIsActive(true);
 
                     developer = developerRepository.save(developer);
@@ -345,6 +360,20 @@ public class IssueImportService {
         }
 
         return displayName.toString().trim();
+    }
+
+    /**
+     * Basic email validation to avoid treating non-email strings as emails returned by Sonar.
+     */
+    private boolean looksLikeEmail(String email) {
+        if (email == null) return false;
+        String trimmed = email.trim();
+        // simple check: contains '@' and a dot after '@' and no spaces
+        int at = trimmed.indexOf('@');
+        if (at <= 0 || at != trimmed.lastIndexOf('@')) return false;
+        if (trimmed.contains(" ")) return false;
+        int dot = trimmed.indexOf('.', at);
+        return dot > at + 1 && dot < trimmed.length() - 1;
     }
 
     // ============ PARSING HELPER METHODS ============

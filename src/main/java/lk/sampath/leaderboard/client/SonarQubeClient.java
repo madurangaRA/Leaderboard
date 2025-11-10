@@ -170,23 +170,73 @@ public class SonarQubeClient {
             return Optional.empty();
         }
 
+        // Use 'q' parameter which is supported by SonarQube users search API and filter results
         String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
                 .path("/api/users/search")
-                .queryParam("login", login)
+                .queryParam("q", login)
                 .toUriString();
 
         try {
             ResponseEntity<SonarUserSearchResponse> response = restTemplate().exchange(
                     url, HttpMethod.GET, createHttpEntity(), SonarUserSearchResponse.class);
 
-            if (response.getBody() != null && response.getBody().getUsers() != null && !response.getBody().getUsers().isEmpty()) {
-                SonarUserSearchResponse.User user = response.getBody().getUsers().get(0);
-                if (user.getName() != null && !user.getName().isBlank()) {
-                    return Optional.of(user.getName());
+            if (response.getBody() != null && response.getBody().getUsers() != null) {
+                // Try to find exact login match first
+                for (SonarUserSearchResponse.User user : response.getBody().getUsers()) {
+                    if (user.getLogin() != null && user.getLogin().equalsIgnoreCase(login)) {
+                        if (user.getName() != null && !user.getName().isBlank()) {
+                            return Optional.of(user.getName());
+                        }
+                        return Optional.of(user.getLogin());
+                    }
                 }
-                if (user.getLogin() != null && !user.getLogin().isBlank()) {
-                    return Optional.of(user.getLogin());
+
+                // If no exact login match, but there is at least one user whose name contains the login fragment, prefer that
+                for (SonarUserSearchResponse.User user : response.getBody().getUsers()) {
+                    if (user.getName() != null && user.getName().toLowerCase().contains(login.toLowerCase())) {
+                        return Optional.of(user.getName());
+                    }
                 }
+            }
+        } catch (Exception e) {
+            logRequestError(e, "Error fetching user details for login " + login);
+        }
+        // No reliable display name found; return empty so caller can fall back to formatted key
+        return Optional.empty();
+    }
+
+    /**
+     * Fetch user details (login, name, email) from SonarQube for a given login/author key.
+     * Uses /api/users/search?q={login}
+     */
+    public Optional<SonarUserSearchResponse.User> fetchUserDetails(String login) {
+        if (login == null || login.isBlank()) {
+            return Optional.empty();
+        }
+
+        String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+                .path("/api/users/search")
+                .queryParam("q", login)
+                .toUriString();
+
+        try {
+            ResponseEntity<SonarUserSearchResponse> response = restTemplate().exchange(
+                    url, HttpMethod.GET, createHttpEntity(), SonarUserSearchResponse.class);
+
+            if (response.getBody() != null && response.getBody().getUsers() != null) {
+                // Log response size and first user for debugging why same name appears for many authors
+                log.debug("fetchUserDetails('{}') returned {} users", login, response.getBody().getUsers().size());
+                if (!response.getBody().getUsers().isEmpty()) {
+                    SonarUserSearchResponse.User first = response.getBody().getUsers().get(0);
+                    log.debug("First user for '{}': login='{}' name='{}' email='{}'", login, first.getLogin(), first.getName(), first.getEmail());
+                }
+                for (SonarUserSearchResponse.User user : response.getBody().getUsers()) {
+                    if (user.getLogin() != null && user.getLogin().equalsIgnoreCase(login)) {
+                        return Optional.of(user);
+                    }
+                }
+                // Do not return a first/partial match to avoid incorrect mapping; only exact login matches are reliable
+                return Optional.empty();
             }
         } catch (Exception e) {
             logRequestError(e, "Error fetching user details for login " + login);
