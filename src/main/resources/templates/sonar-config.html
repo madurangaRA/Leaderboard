@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SonarQube Configuration</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+<div class="container">
+    <div class="leaderboard-section config-card">
+        <div class="header">
+            <h2 class="section-title">⚙️ SonarQube Configuration</h2>
+        </div>
+
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+        <form th:action="@{/admin/sonarqube-config}" method="post">
+            <div class="form-group">
+                <label for="baseUrl">Base URL</label>
+                <input type="url" id="baseUrl" name="baseUrl" class="form-control" th:value="${baseUrl}" placeholder="https://sonar.example.com" required />
+            </div>
+
+            <div class="form-group">
+                <label for="apiToken">API Token</label>
+                <input type="password" id="apiToken" name="apiToken" class="form-control" placeholder="Enter API token (leave blank to keep existing)" />
+                <small class="form-text text-muted" th:if="${apiTokenMasked != null and apiTokenMasked != ''}">Current token: <strong th:text="${apiTokenMasked}"></strong></small>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a th:href="@{/}" class="btn btn-secondary">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

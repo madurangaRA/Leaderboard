@@ -2,6 +2,8 @@ package lk.sampath.leaderboard.client;
 
 import lk.sampath.leaderboard.config.SonarQubeProperties;
 import lk.sampath.leaderboard.dto.*;
+import lk.sampath.leaderboard.services.SonarQubeConfigService;
+import lk.sampath.leaderboard.entity.SonarQubeConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -23,10 +25,21 @@ public class SonarQubeClient {
 
     private final SonarQubeProperties properties;
     private final RestTemplateBuilder restTemplateBuilder;
+    private final SonarQubeConfigService configService;
 
     private RestTemplate restTemplate() {
         // Use RestTemplateBuilder's basicAuthentication so preemptive auth is configured when supported
         // If token is present, configure builder with token as username and empty password; otherwise builder stays default
+        // Prefer token from DB config if available
+        try {
+            Optional<SonarQubeConfig> cfg = configService.getLatestConfig();
+            if (cfg.isPresent() && cfg.get().getApiToken() != null && !cfg.get().getApiToken().isBlank()) {
+                return restTemplateBuilder.basicAuthentication(cfg.get().getApiToken(), "").build();
+            }
+        } catch (Exception e) {
+            log.debug("No DB sonar config available or error reading it: {}", e.getMessage());
+        }
+
         if (properties.getToken() != null && !properties.getToken().isBlank()) {
             return restTemplateBuilder.basicAuthentication(properties.getToken(), "").build();
         }
@@ -36,12 +49,24 @@ public class SonarQubeClient {
         return restTemplateBuilder.build();
     }
 
+    private String getEffectiveBaseUrl() {
+        try {
+            Optional<SonarQubeConfig> cfg = configService.getLatestConfig();
+            if (cfg.isPresent() && cfg.get().getBaseUrl() != null && !cfg.get().getBaseUrl().isBlank()) {
+                return cfg.get().getBaseUrl();
+            }
+        } catch (Exception e) {
+            log.debug("No DB sonar config available or error reading it: {}", e.getMessage());
+        }
+        return properties.getBaseUrl();
+    }
+
     public List<SonarProjectSearchResponse.Component> fetchAllProjects() {
         List<SonarProjectSearchResponse.Component> allProjects = new ArrayList<>();
         int page = 1;
 
         while (page <= properties.getMaxPages()) {
-            String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+            String url = UriComponentsBuilder.fromUriString(getEffectiveBaseUrl())
                     .path("/api/components/search")
                     .queryParam("qualifiers", "TRK")
                     .queryParam("p", page)
@@ -81,7 +106,7 @@ public class SonarQubeClient {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         while (page <= properties.getMaxPages()) {
-            String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+            String url = UriComponentsBuilder.fromUriString(getEffectiveBaseUrl())
                     .path("/api/issues/search")
                     .queryParam("componentKeys", projectKey)
                     .queryParam("createdAfter", fromDate.format(formatter))
@@ -118,7 +143,7 @@ public class SonarQubeClient {
     }
 
     public Map<String, String> fetchProjectMetrics(String projectKey) {
-        String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+        String url = UriComponentsBuilder.fromUriString(getEffectiveBaseUrl())
                 .path("/api/measures/component")
                 .queryParam("component", projectKey)
                 .queryParam("metricKeys", "ncloc,bugs,vulnerabilities,code_smells")
@@ -142,7 +167,7 @@ public class SonarQubeClient {
     }
 
     public Set<String> fetchAuthorsForProject(String projectKey) {
-        String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+        String url = UriComponentsBuilder.fromUriString(getEffectiveBaseUrl())
                 .path("/api/issues/authors")
                 .queryParam("project", projectKey)
                 .queryParam("ps", 500)
@@ -171,7 +196,7 @@ public class SonarQubeClient {
         }
 
         // Use 'q' parameter which is supported by SonarQube users search API and filter results
-        String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+        String url = UriComponentsBuilder.fromUriString(getEffectiveBaseUrl())
                 .path("/api/users/search")
                 .queryParam("q", login)
                 .toUriString();
@@ -214,7 +239,7 @@ public class SonarQubeClient {
             return Optional.empty();
         }
 
-        String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+        String url = UriComponentsBuilder.fromUriString(getEffectiveBaseUrl())
                 .path("/api/users/search")
                 .queryParam("q", login)
                 .toUriString();
