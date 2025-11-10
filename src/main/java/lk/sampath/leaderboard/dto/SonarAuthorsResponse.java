@@ -11,4 +11,3 @@ import java.util.List;
 public class SonarAuthorsResponse {
     private List<String> authors;
 }
-

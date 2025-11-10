@@ -6,11 +6,11 @@
     <!-- Defect Terminator -->
     <div class="carousel-slide active" th:if="${defectTerminator != null}">
         <div class="champion-card">
-            <h3>🛡️ Defect Terminator</h3>
+            <h3 th:text="|${defectTerminator.iconEmoji} Defect Terminator|">🛡️ Defect Terminator</h3>
             <div class="winner" th:text="${defectTerminator.name}">Developer Name</div>
             <div class="metric">
                 <span th:text="${defectTerminator.value}">+12</span>
-                <span>violations eliminatedz</span>
+                <span>violations eliminated</span>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
     <!-- The Code Rock -->
     <div class="carousel-slide" th:if="${codeRock != null}">
         <div class="champion-card">
-            <h3>🪨 The Code Rock</h3>
+            <h3 th:text="|${codeRock.iconEmoji} The Code Rock|">🪨 The Code Rock</h3>
             <div class="winner" th:text="${codeRock.name}">Developer Name</div>
             <div class="metric">
                 <span th:text="${codeRock.value}">0.3</span>
@@ -30,7 +30,7 @@
     <!-- The Code Shield -->
     <div class="carousel-slide" th:if="${codeShield != null}">
         <div class="champion-card">
-            <h3>🛡️ The Code Shield</h3>
+            <h3 th:text="|${codeShield.iconEmoji} The Code Shield|">🛡️ The Code Shield</h3>
             <div class="winner" th:text="${codeShield.name}">Developer Name</div>
             <div class="metric">
                 <span th:text="${codeShield.value}">0.1</span>
@@ -42,7 +42,7 @@
     <!-- The Craftsman -->
     <div class="carousel-slide" th:if="${craftsman != null}">
         <div class="champion-card">
-            <h3>🔧 The Craftsman</h3>
+            <h3 th:text="|${craftsman.iconEmoji} The Craftsman|">🔧 The Craftsman</h3>
             <div class="winner" th:text="${craftsman.name}">Developer Name</div>
             <div class="metric">
                 <span th:text="${craftsman.value}">0.2</span>
@@ -54,11 +54,11 @@
     <!-- The Climber -->
     <div class="carousel-slide" th:if="${climber != null}">
         <div class="champion-card">
-            <h3>📈 The Climber</h3>
+            <h3 th:text="|${climber.iconEmoji} The Climber|">📈 The Climber</h3>
             <div class="winner" th:text="${climber.name}">Developer Name</div>
             <div class="metric">
-                <span th:text="${climber.value}">+14</span>
-                <span>ranking positions improved</span>
+                <span th:text="${climber.value}">+14.0</span>
+                <span>average positions improved</span>
             </div>
         </div>
     </div>

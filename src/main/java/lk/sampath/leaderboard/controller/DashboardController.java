@@ -49,6 +49,7 @@ public class DashboardController {
             model.addAttribute("hasLeaderboards", hasLeaderboards);
 
             log.info("Dashboard data loaded successfully");
+
             return "dashboard";
         } catch (Exception e) {
             log.error("Error loading dashboard", e);

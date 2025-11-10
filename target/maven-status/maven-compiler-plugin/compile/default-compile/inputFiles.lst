@@ -1,7 +1,9 @@
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/services/DashboardService.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/services/DeveloperService.java
+/Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/config/SonarQubeProperties.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/controller/DashboardController.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/services/impl/DeveloperServiceImpl.java
+/Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/controller/IssueImportController.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/dto/mapper/DashboardMapper.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/exception/ResourceNotFoundException.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/dto/AchievementDTO.java
@@ -19,14 +21,15 @@
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/ServletInitializer.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/services/impl/DashboardServiceImpl.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/util/MetricsCalculator.java
-/Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/services/impl/SonarQubeSyncServiceImpl.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/services/impl/AdminServiceImpl.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/dto/SonarIssuesSearchResponse.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/dto/SyncResponse.java
-/Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/controller/SyncController.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/LeaderboardApplication.java
+/Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/services/LeaderboardSchedulerService.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/repository/IndividualRankingRepository.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/util/Constants.java
+/Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/services/KlocCalculationService.java
+/Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/controller/LeaderboardController.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/repository/ProjectMetricsDailyRepository.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/repository/ProjectRankingRepository.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/entity/MonthlyChampion.java
@@ -51,6 +54,7 @@
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/entity/ProjectRanking.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/services/AdminService.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/dto/SonarProjectSearchResponse.java
+/Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/services/IssueImportService.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/dto/RankingPositionDTO.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/controller/RankingController.java
 /Users/madurangarathnamalala/Sampath/leaderboard/leaderboard/leaderboard-git/src/main/java/lk/sampath/leaderboard/config/DataSourceConfig.java

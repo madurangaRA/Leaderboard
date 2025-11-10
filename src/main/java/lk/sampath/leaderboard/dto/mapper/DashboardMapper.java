@@ -17,22 +17,23 @@ public class DashboardMapper {
                 .name(ranking.getDeveloper().getDisplayName())
                 .value(formatMetricValue(ranking, metric))
                 .metric(metric)
-                .rank(ranking.getDefectTerminatorRank())
+                .rank(getRankByMetricType(ranking, metric))
+                .iconEmoji(iconEmoji)
                 .build();
     }
 
     public ChampionDTO toProjectChampionDTO(ProjectRanking ranking, String metric, String iconEmoji) {
-        if (ranking == null) {
-            return null;
-        }
-        return ChampionDTO.builder()
-                .name(ranking.getProject().getProjectName())
-                .value(formatProjectMetricValue(ranking, metric))
-                .metric(metric)
-                .rank(ranking.getDefectTerminatorRank())
-                .iconEmoji(iconEmoji)
-                .build();
-    }
+         if (ranking == null) {
+             return null;
+         }
+         return ChampionDTO.builder()
+                 .name(ranking.getProject().getProjectName())
+                 .value(formatProjectMetricValue(ranking, metric))
+                 .metric(metric)
+                 .rank(getProjectRankByMetricType(ranking, metric))
+                 .iconEmoji(iconEmoji)
+                 .build();
+     }
 
     public RankingPositionDTO toRankingPositionDTO(IndividualRanking ranking, String metricType) {
         if (ranking == null) {
@@ -62,7 +63,7 @@ public class DashboardMapper {
             case "code_rock" -> String.format("%.1f", ranking.getCodeRockScore() != null ? ranking.getCodeRockScore().doubleValue() : 0);
             case "code_shield" -> String.format("%.1f", ranking.getCodeShieldScore() != null ? ranking.getCodeShieldScore().doubleValue() : 0);
             case "craftsman" -> String.format("%.1f", ranking.getCraftsmanScore() != null ? ranking.getCraftsmanScore().doubleValue() : 0);
-            case "climber" -> String.format("+%.0f", ranking.getClimberScore() != null ? ranking.getClimberScore().doubleValue() : 0);
+            case "climber" -> String.format("+%.1f", ranking.getClimberScore() != null ? ranking.getClimberScore().doubleValue() : 0.0);
             default -> "N/A";
         };
     }

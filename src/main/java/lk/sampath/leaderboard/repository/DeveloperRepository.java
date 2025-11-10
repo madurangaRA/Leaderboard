@@ -12,4 +12,5 @@ public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
     Optional<Developer> findByAuthorKey(String authorKey);
     List<Developer> findByIsActiveTrue();
     long countByIsActiveTrue();
+    boolean existsByAuthorKey(String authorKey);
 }

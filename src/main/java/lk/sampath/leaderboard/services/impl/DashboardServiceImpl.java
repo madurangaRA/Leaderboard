@@ -6,12 +6,9 @@ import lk.sampath.leaderboard.dto.LeaderboardDTO;
 import lk.sampath.leaderboard.dto.mapper.DashboardMapper;
 import lk.sampath.leaderboard.entity.IndividualRanking;
 import lk.sampath.leaderboard.entity.ProjectRanking;
-import lk.sampath.leaderboard.repository.DeveloperRepository;
 import lk.sampath.leaderboard.repository.IndividualRankingRepository;
 import lk.sampath.leaderboard.repository.ProjectRankingRepository;
-import lk.sampath.leaderboard.repository.ProjectRepository;
 import lk.sampath.leaderboard.services.DashboardService;
-import lk.sampath.leaderboard.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -39,19 +36,14 @@ public class DashboardServiceImpl implements DashboardService {
     private ProjectRankingRepository projectRankingRepository;
 
     @Autowired
-    private DeveloperRepository developerRepository;
-
-    @Autowired
-    private ProjectRepository projectRepository;
-
-    @Autowired
     private DashboardMapper dashboardMapper;
 
     @Override
     @Cacheable(value = "dashboard", unless = "#result == null")
     public DashboardDTO getDashboardData() {
         log.info("Fetching dashboard data");
-        LocalDate currentPeriod = DateUtils.getCurrentMonthStart();
+        // use a date in the previous month (any day) as the period reference
+        LocalDate currentPeriod = LocalDate.now().minusMonths(1);
 
         try {
             List<IndividualRanking> defectTerminators = individualRankingRepository.findTop3DefectTerminators(currentPeriod);
@@ -71,7 +63,7 @@ public class DashboardServiceImpl implements DashboardService {
                     .codeShield(getFirstOrNull(codeShields, "code_shield", "🛡️"))
                     .craftsman(getFirstOrNull(craftsmen, "craftsman", "🔧"))
                     .climber(getFirstOrNull(climbers, "climber", "📈"))
-                    .individualAchievements(buildIndividualLeaderboards(Arrays.asList(defectTerminators, codeRocks, codeShields, craftsmen)))
+                    .individualAchievements(buildIndividualLeaderboards(Arrays.asList(defectTerminators, codeRocks, codeShields, craftsmen, climbers)))
                     .projectAchievements(buildProjectLeaderboards(Arrays.asList(projectDefectTerminators, projectCodeRocks, projectCodeShields, projectCraftsmen)))
                     .lastUpdated(LocalDateTime.now().toString())
                     .build();
@@ -89,9 +81,7 @@ public class DashboardServiceImpl implements DashboardService {
     @Scheduled(cron = "0 0 * * * *")
     @CacheEvict(value = "dashboard", allEntries = true)
     public void refreshDashboard() {
-        log.info("Refreshing dashboard cache");
-        // Eviction is handled by the annotation; avoid self-invocation of getDashboardData() so caching works via proxy
-         this.getDashboardData();
+        log.info("Refreshing dashboard cache (evicted). Will be repopulated on next request.");
     }
 
     private ChampionDTO getFirstOrNull(List<?> rankings, String metricType, String emoji) {
@@ -110,8 +100,8 @@ public class DashboardServiceImpl implements DashboardService {
 
     private List<LeaderboardDTO> buildIndividualLeaderboards(List<List<IndividualRanking>> allRankings) {
         List<LeaderboardDTO> leaderboards = new ArrayList<>();
-        String[] achievements = {"Defect Terminator", "Code Rock", "Code Shield", "Craftsman"};
-        String[] metrics = {"defect_terminator", "code_rock", "code_shield", "craftsman"};
+        String[] achievements = {"Defect Terminator", "Code Rock", "Code Shield", "Craftsman", "Climber"};
+        String[] metrics = {"defect_terminator", "code_rock", "code_shield", "craftsman", "climber"};
 
         for (int i = 0; i < allRankings.size(); i++) {
             List<IndividualRanking> rankings = allRankings.get(i);

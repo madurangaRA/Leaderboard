@@ -29,9 +29,46 @@ public interface IssueRepository extends JpaRepository<Issue, Integer> {
             @Param("fromDate") LocalDateTime fromDate
     );
 
-    @Query("SELECT COUNT(i) FROM Issue i WHERE i.project = :project AND i.issueType = :type AND i.status NOT IN ('RESOLVED', 'CLOSED')")
+    @Query("SELECT COUNT(i) FROM Issue i WHERE i.project = :project AND i.issueType = :type AND i.status NOT IN (lk.sampath.leaderboard.entity.Issue.IssueStatus.RESOLVED, lk.sampath.leaderboard.entity.Issue.IssueStatus.CLOSED)")
     Long countOpenIssuesByProjectAndType(
             @Param("project") Project project,
             @Param("type") Issue.IssueType type
     );
+
+
+
+
+
+    @Query("SELECT COUNT(i) FROM Issue i WHERE i.developer.id = :developerId " +
+            "AND i.status = 'RESOLVED' AND i.resolvedDate BETWEEN :startDate AND :endDate")
+    Long countResolvedIssues(@Param("developerId") Integer developerId,
+                             @Param("startDate") LocalDateTime startDate,
+                             @Param("endDate") LocalDateTime endDate);
+
+    @Query("SELECT COUNT(i) FROM Issue i WHERE i.developer.id = :developerId " +
+            "AND i.createdDate BETWEEN :startDate AND :endDate")
+    Long countIntroducedIssues(@Param("developerId") Integer developerId,
+                               @Param("startDate") LocalDateTime startDate,
+                               @Param("endDate") LocalDateTime endDate);
+
+    @Query("SELECT COUNT(i) FROM Issue i WHERE i.project.id = :projectId " +
+            "AND i.issueType = :issueType AND i.status IN (lk.sampath.leaderboard.entity.Issue.IssueStatus.OPEN, lk.sampath.leaderboard.entity.Issue.IssueStatus.CONFIRMED, lk.sampath.leaderboard.entity.Issue.IssueStatus.REOPENED)")
+    Long countOpenIssuesByType(@Param("projectId") Integer projectId,
+                               @Param("issueType") Issue.IssueType issueType);
+
+    @Query("SELECT COUNT(i) FROM Issue i WHERE i.developer.id = :developerId " +
+            "AND i.issueType = :issueType AND i.status IN (lk.sampath.leaderboard.entity.Issue.IssueStatus.OPEN, lk.sampath.leaderboard.entity.Issue.IssueStatus.CONFIRMED, lk.sampath.leaderboard.entity.Issue.IssueStatus.REOPENED)")
+    Long countOpenIssuesByDeveloperAndType(@Param("developerId") Integer developerId,
+                                           @Param("issueType") Issue.IssueType issueType);
+
+    List<Issue> findByProjectAndCreatedDateBetween(Project project,
+                                                   LocalDateTime startDate,
+                                                   LocalDateTime endDate);
+
+    List<Issue> findByDeveloperAndCreatedDateBetween(Developer developer,
+                                                     LocalDateTime startDate,
+                                                     LocalDateTime endDate);
+
+    @Query("SELECT COUNT(i) FROM Issue i WHERE i.project.id = :projectId")
+    Long countByProject(@Param("projectId") Integer projectId);
 }

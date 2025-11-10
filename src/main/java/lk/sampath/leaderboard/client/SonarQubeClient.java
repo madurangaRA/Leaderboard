@@ -1,247 +1,243 @@
 package lk.sampath.leaderboard.client;
 
-import lk.sampath.leaderboard.dto.SonarIssuesSearchResponse;
-import lk.sampath.leaderboard.dto.SonarMeasuresHistoryResponse;
-import lk.sampath.leaderboard.dto.SonarMeasuresResponse;
-import lk.sampath.leaderboard.dto.SonarProjectSearchResponse;
-import org.springframework.beans.factory.annotation.Value;
+import lk.sampath.leaderboard.config.SonarQubeProperties;
+import lk.sampath.leaderboard.dto.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Base64;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 
-@Slf4j
 @Component
+@RequiredArgsConstructor
+@Slf4j
 public class SonarQubeClient {
 
-    private final RestTemplate restTemplate;
-    private final String baseUrl;
-    private final int pageSize;
+    private final SonarQubeProperties properties;
+    private final RestTemplateBuilder restTemplateBuilder;
 
-    public SonarQubeClient(
-            RestTemplateBuilder restTemplateBuilder,
-            @Value("${sonarqube.base-url}") String baseUrl,
-            @Value("${sonarqube.api-token:}") String apiToken,
-            @Value("${sonarqube.username:}") String username,
-            @Value("${sonarqube.password:}") String password,
-            @Value("${sonarqube.sync.page-size:500}") int pageSize) {
-
-        this.baseUrl = baseUrl;
-        this.pageSize = pageSize;
-
-        // Build RestTemplate with authentication
-        RestTemplateBuilder builder = restTemplateBuilder
-                .rootUri(baseUrl);
-
-        // Use API token if provided, otherwise use basic auth
-        if (apiToken != null && !apiToken.isEmpty()) {
-            String encodedToken = Base64.getEncoder()
-                    .encodeToString((apiToken + ":").getBytes());
-            builder = builder.defaultHeader(HttpHeaders.AUTHORIZATION, "Basic " + encodedToken);
-            log.info("SonarQube client configured with API token");
-        } else if (username != null && !username.isEmpty()) {
-            String auth = username + ":" + password;
-            String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
-            builder = builder.defaultHeader(HttpHeaders.AUTHORIZATION, "Basic " + encodedAuth);
-            log.info("SonarQube client configured with basic auth");
+    private RestTemplate restTemplate() {
+        // Use RestTemplateBuilder's basicAuthentication so preemptive auth is configured when supported
+        // If token is present, configure builder with token as username and empty password; otherwise builder stays default
+        if (properties.getToken() != null && !properties.getToken().isBlank()) {
+            return restTemplateBuilder.basicAuthentication(properties.getToken(), "").build();
         }
-
-        this.restTemplate = builder.build();
-        log.info("SonarQube client initialized for: {}", baseUrl);
+        if (properties.getUsername() != null && !properties.getUsername().isBlank()) {
+            return restTemplateBuilder.basicAuthentication(properties.getUsername(), properties.getPassword() == null ? "" : properties.getPassword()).build();
+        }
+        return restTemplateBuilder.build();
     }
 
-    /**
-     * Fetch all projects from SonarQube
-     */
-    public SonarProjectSearchResponse searchProjects(int page) {
-        log.debug("Fetching projects - page: {}", page);
+    public List<SonarProjectSearchResponse.Component> fetchAllProjects() {
+        List<SonarProjectSearchResponse.Component> allProjects = new ArrayList<>();
+        int page = 1;
 
-        try {
-            String url = UriComponentsBuilder.fromPath("/api/projects/search")
+        while (page <= properties.getMaxPages()) {
+            String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+                    .path("/api/components/search")
+                    .queryParam("qualifiers", "TRK")
                     .queryParam("p", page)
-                    .queryParam("ps", pageSize)
+                    .queryParam("ps", properties.getPageSize())
                     .toUriString();
 
-            ResponseEntity<SonarProjectSearchResponse> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    null,
-                    SonarProjectSearchResponse.class
-            );
+            try {
+                ResponseEntity<SonarProjectSearchResponse> response = restTemplate().exchange(
+                        url, HttpMethod.GET, createHttpEntity(), SonarProjectSearchResponse.class);
 
-            return response.getBody();
+                if (response.getBody() != null) {
+                    List<SonarProjectSearchResponse.Component> components = response.getBody().getComponents();
+                    if (components.isEmpty()) {
+                        break;
+                    }
+                    allProjects.addAll(components);
 
-        } catch (RestClientException e) {
-            log.error("Error fetching projects: {}", e.getMessage());
-            return null;
+                    if (components.size() < properties.getPageSize()) {
+                        break;
+                    }
+                }
+                page++;
+            } catch (Exception e) {
+                logRequestError(e, "Error fetching projects at page " + page);
+                break;
+            }
         }
+
+        log.info("Fetched {} projects from SonarQube", allProjects.size());
+        return allProjects;
     }
 
-    /**
-     * Fetch issues for a specific project
-     */
-    public SonarIssuesSearchResponse searchIssues(String projectKey, int page, String createdAfter) {
-        log.debug("Fetching issues for project: {} - page: {}", projectKey, page);
+    public List<SonarIssuesSearchResponse.IssueDetail> fetchIssuesForProject(String projectKey, LocalDate fromDate, LocalDate toDate) {
+        List<SonarIssuesSearchResponse.IssueDetail> allIssues = new ArrayList<>();
+        int page = 1;
 
-        try {
-            UriComponentsBuilder builder = UriComponentsBuilder.fromPath("/api/issues/search")
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        while (page <= properties.getMaxPages()) {
+            String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+                    .path("/api/issues/search")
                     .queryParam("componentKeys", projectKey)
+                    .queryParam("createdAfter", fromDate.format(formatter))
+                    .queryParam("createdBefore", toDate.format(formatter))
                     .queryParam("p", page)
-                    .queryParam("ps", pageSize)
-                    .queryParam("resolved", "false")
-                    .queryParam("types", "BUG,VULNERABILITY,CODE_SMELL");
-
-            if (createdAfter != null && !createdAfter.isEmpty()) {
-                builder.queryParam("createdAfter", createdAfter);
-            }
-
-            String url = builder.toUriString();
-
-            ResponseEntity<SonarIssuesSearchResponse> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    null,
-                    SonarIssuesSearchResponse.class
-            );
-
-            return response.getBody();
-
-        } catch (RestClientException e) {
-            log.error("Error fetching issues: {}", e.getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Fetch all issues (including resolved) for metrics calculation
-     */
-    public SonarIssuesSearchResponse searchAllIssues(String projectKey, int page,
-                                                     String createdAfter, String createdBefore) {
-        log.debug("Fetching all issues for project: {} - page: {}", projectKey, page);
-
-        try {
-            UriComponentsBuilder builder = UriComponentsBuilder.fromPath("/api/issues/search")
-                    .queryParam("componentKeys", projectKey)
-                    .queryParam("p", page)
-                    .queryParam("ps", pageSize)
-                    .queryParam("types", "BUG,VULNERABILITY,CODE_SMELL");
-
-            if (createdAfter != null && !createdAfter.isEmpty()) {
-                builder.queryParam("createdAfter", createdAfter);
-            }
-
-            if (createdBefore != null && !createdBefore.isEmpty()) {
-                builder.queryParam("createdBefore", createdBefore);
-            }
-
-            String url = builder.toUriString();
-
-            ResponseEntity<SonarIssuesSearchResponse> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    null,
-                    SonarIssuesSearchResponse.class
-            );
-
-            return response.getBody();
-
-        } catch (RestClientException e) {
-            log.error("Error fetching all issues: {}", e.getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Fetch current measures for a project
-     */
-    public SonarMeasuresResponse getProjectMeasures(String projectKey) {
-        log.debug("Fetching measures for project: {}", projectKey);
-
-        try {
-            String metrics = "ncloc,bugs,vulnerabilities,code_smells," +
-                    "reliability_rating,security_rating,sqale_rating";
-
-            String url = UriComponentsBuilder.fromPath("/api/measures/component")
-                    .queryParam("component", projectKey)
-                    .queryParam("metricKeys", metrics)
+                    .queryParam("ps", properties.getPageSize())
+                    .queryParam("additionalFields", "comments")
                     .toUriString();
 
-            ResponseEntity<SonarMeasuresResponse> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    null,
-                    SonarMeasuresResponse.class
-            );
+            try {
+                ResponseEntity<SonarIssuesSearchResponse> response = restTemplate().exchange(
+                        url, HttpMethod.GET, createHttpEntity(), SonarIssuesSearchResponse.class);
 
-            return response.getBody();
+                if (response.getBody() != null) {
+                    List<SonarIssuesSearchResponse.IssueDetail> issues = response.getBody().getIssues();
+                    if (issues.isEmpty()) {
+                        break;
+                    }
+                    allIssues.addAll(issues);
 
-        } catch (RestClientException e) {
-            log.error("Error fetching measures: {}", e.getMessage());
-            return null;
+                    if (issues.size() < properties.getPageSize()) {
+                        break;
+                    }
+                }
+                page++;
+            } catch (Exception e) {
+                logRequestError(e, "Error fetching issues for project " + projectKey + " at page " + page);
+                break;
+            }
         }
+
+        log.info("Fetched {} issues for project {}", allIssues.size(), projectKey);
+        return allIssues;
     }
 
-    /**
-     * Fetch historical measures for a project
-     */
-    public SonarMeasuresHistoryResponse getProjectMeasuresHistory(String projectKey,
-                                                                  String from, String to) {
-        log.debug("Fetching measures history for project: {} from {} to {}", projectKey, from, to);
+    public Map<String, String> fetchProjectMetrics(String projectKey) {
+        String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+                .path("/api/measures/component")
+                .queryParam("component", projectKey)
+                .queryParam("metricKeys", "ncloc,bugs,vulnerabilities,code_smells")
+                .toUriString();
 
         try {
-            String metrics = "ncloc,bugs,vulnerabilities,code_smells," +
-                    "reliability_rating,security_rating,sqale_rating";
+            ResponseEntity<SonarMeasuresResponse> response = restTemplate().exchange(
+                    url, HttpMethod.GET, createHttpEntity(), SonarMeasuresResponse.class);
 
-            UriComponentsBuilder builder = UriComponentsBuilder.fromPath("/api/measures/search_history")
-                    .queryParam("component", projectKey)
-                    .queryParam("metrics", metrics)
-                    .queryParam("ps", 1000);
-
-            if (from != null && !from.isEmpty()) {
-                builder.queryParam("from", from);
+            Map<String, String> metrics = new HashMap<>();
+            if (response.getBody() != null && response.getBody().getComponent() != null) {
+                response.getBody().getComponent().getMeasures().forEach(measure ->
+                        metrics.put(measure.getMetric(), measure.getValue())
+                );
             }
-            if (to != null && !to.isEmpty()) {
-                builder.queryParam("to", to);
-            }
-
-            String url = builder.toUriString();
-
-            ResponseEntity<SonarMeasuresHistoryResponse> response = restTemplate.exchange(
-                    url,
-                    HttpMethod.GET,
-                    null,
-                    SonarMeasuresHistoryResponse.class
-            );
-
-            return response.getBody();
-
-        } catch (RestClientException e) {
-            log.error("Error fetching measures history: {}", e.getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Test connection to SonarQube
-     */
-    public boolean testConnection() {
-        try {
-            log.info("Testing SonarQube connection...");
-            SonarProjectSearchResponse response = searchProjects(1);
-            boolean connected = response != null;
-            log.info("SonarQube connection test: {}", connected ? "SUCCESS" : "FAILED");
-            return connected;
+            return metrics;
         } catch (Exception e) {
-            log.error("SonarQube connection test failed: {}", e.getMessage());
-            return false;
+            logRequestError(e, "Error fetching metrics for project " + projectKey);
+            return Collections.emptyMap();
         }
     }
+
+    public Set<String> fetchAuthorsForProject(String projectKey) {
+        String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+                .path("/api/issues/authors")
+                .queryParam("project", projectKey)
+                .queryParam("ps", 500)
+                .toUriString();
+
+        try {
+            ResponseEntity<SonarAuthorsResponse> response = restTemplate().exchange(
+                    url, HttpMethod.GET, createHttpEntity(), SonarAuthorsResponse.class);
+
+            if (response.getBody() != null && response.getBody().getAuthors() != null) {
+                return new HashSet<>(response.getBody().getAuthors());
+            }
+        } catch (Exception e) {
+            logRequestError(e, "Error fetching authors for project " + projectKey);
+        }
+        return Collections.emptySet();
+    }
+
+    /**
+     * Fetch user details (display name) from SonarQube for a given login/author key.
+     * Uses /api/users/search?login={login}
+     */
+    public Optional<String> fetchUserDisplayName(String login) {
+        if (login == null || login.isBlank()) {
+            return Optional.empty();
+        }
+
+        String url = UriComponentsBuilder.fromUriString(properties.getBaseUrl())
+                .path("/api/users/search")
+                .queryParam("login", login)
+                .toUriString();
+
+        try {
+            ResponseEntity<SonarUserSearchResponse> response = restTemplate().exchange(
+                    url, HttpMethod.GET, createHttpEntity(), SonarUserSearchResponse.class);
+
+            if (response.getBody() != null && response.getBody().getUsers() != null && !response.getBody().getUsers().isEmpty()) {
+                SonarUserSearchResponse.User user = response.getBody().getUsers().get(0);
+                if (user.getName() != null && !user.getName().isBlank()) {
+                    return Optional.of(user.getName());
+                }
+                if (user.getLogin() != null && !user.getLogin().isBlank()) {
+                    return Optional.of(user.getLogin());
+                }
+            }
+        } catch (Exception e) {
+            logRequestError(e, "Error fetching user details for login " + login);
+        }
+        return Optional.empty();
+    }
+
+    private HttpEntity<?> createHttpEntity() {
+        HttpHeaders headers = new HttpHeaders();
+        // Prefer API token; if not present, fall back to username/password
+        if (properties.getToken() != null && !properties.getToken().isBlank()) {
+            headers.setBasicAuth(properties.getToken(), "");
+        } else if (properties.getUsername() != null && !properties.getUsername().isBlank()) {
+            headers.setBasicAuth(properties.getUsername(), properties.getPassword() == null ? "" : properties.getPassword());
+        } else {
+            String msg = "SonarQube credentials not configured. Set sonarqube.api-token or sonarqube.username/sonarqube.password in application properties.";
+            log.error(msg);
+            throw new IllegalStateException(msg);
+        }
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new HttpEntity<>(headers);
+    }
+
+    private void logRequestError(Exception e, String message) {
+        if (e instanceof HttpClientErrorException) {
+            HttpClientErrorException hce = (HttpClientErrorException) e;
+            String body = "";
+            try {
+                body = hce.getResponseBodyAsString();
+            } catch (Exception ignored) {
+            }
+            log.error("{} - status: {} body: {}", message, hce.getStatusCode(), body);
+        } else {
+            log.error("{} - {}", message, e.getMessage());
+        }
+    }
+
+//    /**
+//     * Test connection to SonarQube
+//     */
+//    public boolean testConnection() {
+//        try {
+//            log.info("Testing SonarQube connection...");
+//            SonarProjectSearchResponse response = searchProjects(1);
+//            boolean connected = response != null;
+//            log.info("SonarQube connection test: {}", connected ? "SUCCESS" : "FAILED");
+//            return connected;
+//        } catch (Exception e) {
+//            log.error("SonarQube connection test failed: {}", e.getMessage());
+//            return false;
+//        }
+//    }
 }

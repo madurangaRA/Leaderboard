@@ -1,5 +1,6 @@
 package lk.sampath.leaderboard.repository;
 
+import lk.sampath.leaderboard.entity.Project;
 import lk.sampath.leaderboard.entity.ProjectRanking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProjectRankingRepository extends JpaRepository<ProjectRanking, Integer> {
@@ -36,6 +38,8 @@ public interface ProjectRankingRepository extends JpaRepository<ProjectRanking, 
     List<ProjectRanking> findTop3Craftsman(@Param("period") LocalDate period);
 
     List<ProjectRanking> findByRankingPeriod(LocalDate period);
+    Optional<ProjectRanking> findByProjectAndRankingPeriod(Project project, LocalDate rankingPeriod);
+
 }
 
 
