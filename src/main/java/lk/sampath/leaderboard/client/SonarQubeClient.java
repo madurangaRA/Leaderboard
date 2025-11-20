@@ -28,9 +28,7 @@ public class SonarQubeClient {
     private final SonarQubeConfigService configService;
 
     private RestTemplate restTemplate() {
-        // Use RestTemplateBuilder's basicAuthentication so preemptive auth is configured when supported
-        // If token is present, configure builder with token as username and empty password; otherwise builder stays default
-        // Prefer token from DB config if available
+
         try {
             Optional<SonarQubeConfig> cfg = configService.getLatestConfig();
             if (cfg.isPresent() && cfg.get().getApiToken() != null && !cfg.get().getApiToken().isBlank()) {
@@ -226,7 +224,6 @@ public class SonarQubeClient {
         } catch (Exception e) {
             logRequestError(e, "Error fetching user details for login " + login);
         }
-        // No reliable display name found; return empty so caller can fall back to formatted key
         return Optional.empty();
     }
 
@@ -299,20 +296,4 @@ public class SonarQubeClient {
             log.error("{} - {}", message, e.getMessage());
         }
     }
-
-//    /**
-//     * Test connection to SonarQube
-//     */
-//    public boolean testConnection() {
-//        try {
-//            log.info("Testing SonarQube connection...");
-//            SonarProjectSearchResponse response = searchProjects(1);
-//            boolean connected = response != null;
-//            log.info("SonarQube connection test: {}", connected ? "SUCCESS" : "FAILED");
-//            return connected;
-//        } catch (Exception e) {
-//            log.error("SonarQube connection test failed: {}", e.getMessage());
-//            return false;
-//        }
-//    }
 }

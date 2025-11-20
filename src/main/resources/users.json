@@ -1,0 +1,1736 @@
+{
+  "paging": {
+    "pageIndex": 1,
+    "pageSize": 500,
+    "total": 104
+  },
+  "users": [
+    {
+      "login": "AvishkaJ",
+      "name": "Avishka Jayawardhana",
+      "active": true,
+      "email": "avishkaj@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "AvishkaJ",
+      "externalProvider": "sonarqube",
+      "avatar": "237bd9a32d6f7ce2edee94960208f72d",
+      "lastConnectionDate": "2025-05-28T23:04:42-0400",
+      "managed": false
+    },
+    {
+      "login": "Haritha",
+      "name": "Haritha Munasinghe",
+      "active": true,
+      "email": "haritham@sampath.lk",
+      "groups": [
+        "sonar-administrators",
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "Haritha",
+      "externalProvider": "sonarqube",
+      "avatar": "d22b64e6f8418c4d5cbd2bad21e7788c",
+      "managed": false
+    },
+    {
+      "login": "Praveen",
+      "name": "Praveen Dassanayake",
+      "active": true,
+      "email": "praveend@sampath.lk",
+      "groups": [
+        "sonar-administrators",
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "Praveen",
+      "externalProvider": "sonarqube",
+      "avatar": "ea144aa3fd310e74568f770418a719f4",
+      "lastConnectionDate": "2025-01-16T20:57:35-0500",
+      "managed": false
+    },
+    {
+      "login": "Ranil",
+      "name": "Ranil Surendra",
+      "active": true,
+      "email": "ranilsu@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "Ranil",
+      "externalProvider": "sonarqube",
+      "avatar": "4d6b22ca0e82cf088671d12a3b00ea64",
+      "managed": false
+    },
+    {
+      "login": "Sanjayaa",
+      "name": "Sanjaya Abeysundara",
+      "active": true,
+      "email": "sanjaya@itsys.sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "Sanjayaa",
+      "externalProvider": "sonarqube",
+      "avatar": "8d98eaf133d9b7b56edcd3d0a8e3ef06",
+      "lastConnectionDate": "2025-09-03T02:05:17-0400",
+      "managed": false
+    },
+    {
+      "login": "Sits_himashaw",
+      "name": "Himasha Vithanage",
+      "active": true,
+      "email": "it_sys_qa@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "Sits_himashaw",
+      "externalProvider": "sonarqube",
+      "avatar": "df382495ee40498c192a97af57b6dcd4",
+      "lastConnectionDate": "2024-10-27T23:23:37-0400",
+      "managed": false
+    },
+    {
+      "login": "achandrapala",
+      "name": "Anjana Chandrapala",
+      "active": true,
+      "email": "achandrapala@mitrai.com",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "achandrapala",
+      "externalProvider": "sonarqube",
+      "avatar": "1f82d25c03f6b7533e968329162715f7",
+      "lastConnectionDate": "2025-10-30T23:12:23-0400",
+      "managed": false
+    },
+    {
+      "login": "admin",
+      "name": "Administrator",
+      "active": true,
+      "groups": [
+        "sonar-administrators",
+        "sonar-users"
+      ],
+      "tokensCount": 3,
+      "local": true,
+      "externalIdentity": "admin",
+      "externalProvider": "sonarqube",
+      "lastConnectionDate": "2025-11-18T02:00:26-0500",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-08-12T01:46:26-0400"
+    },
+    {
+      "login": "amilara",
+      "name": "Amila Ranathunga",
+      "active": true,
+      "email": "amila@itsys.sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "amilara",
+      "externalProvider": "sonarqube",
+      "avatar": "34b0e7eb1c11f2a47f2f8a3ba2704894",
+      "lastConnectionDate": "2025-10-17T04:12:36-0400",
+      "managed": false
+    },
+    {
+      "login": "anujaj",
+      "name": "Anuja Jayathilake",
+      "active": true,
+      "email": "anujaj@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 2,
+      "local": true,
+      "externalIdentity": "anujaj",
+      "externalProvider": "sonarqube",
+      "avatar": "1964cde7253d9fa3c77ce2d3f7381603",
+      "lastConnectionDate": "2025-09-26T05:13:21-0400",
+      "managed": false
+    },
+    {
+      "login": "bhashithaw",
+      "name": "Bhashitha Wijewardhane",
+      "active": true,
+      "email": "bhashithawijewardane@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "bhashithaw",
+      "externalProvider": "sonarqube",
+      "avatar": "783bf316342e1736d8c53be0558ca532",
+      "managed": false
+    },
+    {
+      "login": "bhathiyab",
+      "name": "Bhathiya Bandara",
+      "active": true,
+      "email": "bhathiyab@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "bhathiyab",
+      "externalProvider": "sonarqube",
+      "avatar": "6645298282670c05fab7624cbb1ce650",
+      "lastConnectionDate": "2025-10-27T03:10:08-0400",
+      "managed": false
+    },
+    {
+      "login": "chamals",
+      "name": "Chamal Silva",
+      "active": true,
+      "email": "chamals@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "chamals",
+      "externalProvider": "sonarqube",
+      "avatar": "5984faae501f4b84cd775a748287799f",
+      "managed": false
+    },
+    {
+      "login": "chamaram",
+      "name": "Chamara Madurasanka",
+      "active": true,
+      "email": "chamaram@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "chamaram",
+      "externalProvider": "sonarqube",
+      "avatar": "a6c7c3d78bada785d48549f543347fb8",
+      "managed": false
+    },
+    {
+      "login": "chamikad",
+      "name": "Chamika Dulaj",
+      "active": true,
+      "email": "chamikad@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "chamikad",
+      "externalProvider": "sonarqube",
+      "avatar": "40c2f130814a163f88114e11c2818368",
+      "lastConnectionDate": "2025-08-18T02:46:27-0400",
+      "managed": false
+    },
+    {
+      "login": "chinthakawe",
+      "name": "Chinthaka Weerasinghe",
+      "active": true,
+      "email": "chinthakaweerasinghe@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "chinthakawe",
+      "externalProvider": "sonarqube",
+      "avatar": "328982ebe51b2173d43d2b18c1566fba",
+      "lastConnectionDate": "2025-03-03T03:34:02-0500",
+      "managed": false
+    },
+    {
+      "login": "dhanushkap",
+      "name": "Dhanushka Perara",
+      "active": true,
+      "email": "dhanushkap@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "dhanushkap",
+      "externalProvider": "sonarqube",
+      "avatar": "5758114631e04d1c6306cde11b79c3d4",
+      "lastConnectionDate": "2024-10-29T03:38:32-0400",
+      "managed": false
+    },
+    {
+      "login": "dilanhe",
+      "name": "Dilan Hetti",
+      "active": true,
+      "email": "dilan@itsys.sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "dilanhe",
+      "externalProvider": "sonarqube",
+      "avatar": "616d7f4f525ff7210295ef3c40507c02",
+      "lastConnectionDate": "2025-09-11T06:13:51-0400",
+      "managed": false
+    },
+    {
+      "login": "dilshanf",
+      "name": "Dilshan Fernando",
+      "active": true,
+      "email": "dilshanf@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "dilshanf",
+      "externalProvider": "sonarqube",
+      "avatar": "9970491b864121a554cfd84bbe7414d4",
+      "lastConnectionDate": "2025-03-04T06:13:32-0500",
+      "managed": false
+    },
+    {
+      "login": "dilumw",
+      "name": "Dilum Wijesundara",
+      "active": true,
+      "email": "dilumw@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 2,
+      "local": true,
+      "externalIdentity": "dilumw",
+      "externalProvider": "sonarqube",
+      "avatar": "fa442264ee8ff9bdb2542b37ba8609f2",
+      "lastConnectionDate": "2025-11-04T06:46:22-0500",
+      "managed": false
+    },
+    {
+      "login": "dimuthudi",
+      "name": "Dimuthu Dissanayake",
+      "active": true,
+      "email": "dimuthudi@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "dimuthudi",
+      "externalProvider": "sonarqube",
+      "avatar": "00d019eaa77d7aab914aa178f2c76124",
+      "lastConnectionDate": "2025-09-21T23:10:23-0400",
+      "managed": false
+    },
+    {
+      "login": "dinushan",
+      "name": "Dinusha Nanayakkara",
+      "active": true,
+      "email": "dinushan@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "dinushan",
+      "externalProvider": "sonarqube",
+      "avatar": "0b947fc87a315e63095d98eb87f3391e",
+      "lastConnectionDate": "2024-11-22T06:22:48-0500",
+      "managed": false
+    },
+    {
+      "login": "himani",
+      "name": "Himan Indrasoma",
+      "active": true,
+      "email": "himani@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "himani",
+      "externalProvider": "sonarqube",
+      "avatar": "cae8e38909a194d4769c9730ad7a9ad2",
+      "managed": false
+    },
+    {
+      "login": "ishank",
+      "name": "Ishan Kodippliarachchi",
+      "active": true,
+      "email": "itsys_ext_dev6@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "ishank",
+      "externalProvider": "sonarqube",
+      "avatar": "dd4b19a62b9b32dd39f80bb8d22c4476",
+      "lastConnectionDate": "2025-08-29T06:45:35-0400",
+      "managed": false
+    },
+    {
+      "login": "isurili",
+      "name": "Isuri Uththara Liyanage",
+      "active": true,
+      "email": "isurili@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "isurili",
+      "externalProvider": "sonarqube",
+      "avatar": "1237ea8ad60168351e340fb39b3339d2",
+      "lastConnectionDate": "2024-10-25T00:16:02-0400",
+      "managed": false
+    },
+    {
+      "login": "jenishan",
+      "name": "Jenisha Nagomi",
+      "active": true,
+      "email": "jenishan@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "jenishan",
+      "externalProvider": "sonarqube",
+      "avatar": "df632f5e07cde6312251fa849ff4cb11",
+      "lastConnectionDate": "2025-11-18T01:18:36-0500",
+      "managed": false
+    },
+    {
+      "login": "kamale",
+      "name": "Kamal Ekanayake",
+      "active": true,
+      "email": "kamal@itsys.sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "kamale",
+      "externalProvider": "sonarqube",
+      "avatar": "2b1839c5e3ce2b47a03fce24f0a40e95",
+      "lastConnectionDate": "2025-03-10T23:26:32-0400",
+      "managed": false
+    },
+    {
+      "login": "kanishkah",
+      "name": "Kanishka Hettiarachchi",
+      "active": true,
+      "email": "kanishkah@itsys.sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "kanishkah",
+      "externalProvider": "sonarqube",
+      "avatar": "db62687394d5001978aa31307329922c",
+      "lastConnectionDate": "2024-11-25T05:48:09-0500",
+      "managed": false
+    },
+    {
+      "login": "kanishkarat",
+      "name": "Kanishka Rathnayake",
+      "active": true,
+      "email": "kanishka@infotec.sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "kanishkarat",
+      "externalProvider": "sonarqube",
+      "avatar": "da9a9ccd72c732550f156d147b026232",
+      "lastConnectionDate": "2025-03-19T05:46:09-0400",
+      "managed": false
+    },
+    {
+      "login": "kaushalyaa",
+      "name": "Kaushalya Dias Abeygunawardhana",
+      "active": true,
+      "email": "kaushalyadias@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "kaushalyaa",
+      "externalProvider": "sonarqube",
+      "avatar": "75a9f868f5abfb8542d938d6cf8c086b",
+      "lastConnectionDate": "2025-06-09T05:13:47-0400",
+      "managed": false
+    },
+    {
+      "login": "kaushia",
+      "name": "Kaushi Abygunawardana",
+      "active": true,
+      "email": "kaushia@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "kaushia",
+      "externalProvider": "sonarqube",
+      "avatar": "d04a8149e92942cbd9cd0d5679e0b183",
+      "lastConnectionDate": "2025-01-20T22:48:59-0500",
+      "managed": false
+    },
+    {
+      "login": "kisalr",
+      "name": "Kisal Hettiarachchi",
+      "active": true,
+      "email": "kisalr@sampath.lk",
+      "scmAccounts": [
+        "“kisalr@sampath.lk”"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "kisalr",
+      "externalProvider": "sonarqube",
+      "avatar": "1e0fced9002dae156302a0d369da70ed",
+      "lastConnectionDate": "2025-11-10T02:58:16-0500",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-11-10T02:58:16-0500"
+    },
+    {
+      "login": "kosalab",
+      "name": "Kosala Bandara",
+      "active": true,
+      "email": "kosalab@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "kosalab",
+      "externalProvider": "sonarqube",
+      "avatar": "5af3fced146e5eb511ea39a0a9c02297",
+      "managed": false
+    },
+    {
+      "login": "krishnit",
+      "name": "Krishni Thamishka",
+      "active": true,
+      "email": "krishnit@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "krishnit",
+      "externalProvider": "sonarqube",
+      "avatar": "d0d35ec0ecd2c9a55bae74e94c5b99fe",
+      "lastConnectionDate": "2025-11-04T04:09:51-0500",
+      "managed": false
+    },
+    {
+      "login": "maheshikar",
+      "name": "Maheshika Rathnayake",
+      "active": true,
+      "email": "maheshikara@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "maheshikar",
+      "externalProvider": "sonarqube",
+      "avatar": "e5f091025733bf3258268de5f4d5a623",
+      "lastConnectionDate": "2025-01-15T23:12:19-0500",
+      "managed": false
+    },
+    {
+      "login": "manukak",
+      "name": "Manuka Kasthuriarachchi",
+      "active": true,
+      "email": "manukak@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "manukak",
+      "externalProvider": "sonarqube",
+      "avatar": "06523e4a956b7f9baaed8d6d6f17446a",
+      "lastConnectionDate": "2025-01-15T03:52:01-0500",
+      "managed": false
+    },
+    {
+      "login": "menakawe",
+      "name": "Menake Weerasinghe",
+      "active": true,
+      "email": "menakawe@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "menakawe",
+      "externalProvider": "sonarqube",
+      "avatar": "8f2caf28021e11140160ea55089cc677",
+      "lastConnectionDate": "2025-05-30T08:11:00-0400",
+      "managed": false
+    },
+    {
+      "login": "menakef",
+      "name": "Menake Fernando",
+      "active": true,
+      "email": "menaka@infotec.sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "menakef",
+      "externalProvider": "sonarqube",
+      "avatar": "99b75196f9266f8a61163a7019bc2eb5",
+      "lastConnectionDate": "2025-11-03T00:41:46-0500",
+      "managed": false
+    },
+    {
+      "login": "naduns",
+      "name": "Nadun Sandeepa",
+      "active": true,
+      "email": "naduns@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "naduns",
+      "externalProvider": "sonarqube",
+      "avatar": "6b18a733787f2d88724c2ced28b04334",
+      "lastConnectionDate": "2025-10-24T07:43:01-0400",
+      "managed": false
+    },
+    {
+      "login": "nilupula",
+      "name": "Nilupul Agalakada",
+      "active": true,
+      "email": "nilupula@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "nilupula",
+      "externalProvider": "sonarqube",
+      "avatar": "6981b3d61723b9c7fa5462a5569e2c0b",
+      "lastConnectionDate": "2025-03-07T03:11:21-0500",
+      "managed": false
+    },
+    {
+      "login": "nimashade",
+      "name": "Nimasha Dewangi",
+      "active": true,
+      "email": "nimashade@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "nimashade",
+      "externalProvider": "sonarqube",
+      "avatar": "a4469f14c08a1ffa023894cbc36d9596",
+      "lastConnectionDate": "2025-09-29T05:24:25-0400",
+      "managed": false
+    },
+    {
+      "login": "nipunim",
+      "name": "Nipuni Malvenna",
+      "active": true,
+      "email": "nipunim@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "nipunim",
+      "externalProvider": "sonarqube",
+      "avatar": "6805a0a6abd4aacb34ae2c790faaeb18",
+      "lastConnectionDate": "2024-11-11T01:45:51-0500",
+      "managed": false
+    },
+    {
+      "login": "nipunv",
+      "name": "Nipun Vidusara",
+      "active": true,
+      "email": "nipunv@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "nipunv",
+      "externalProvider": "sonarqube",
+      "avatar": "2cae6fbd3d62f0071a3b7903c786fe76",
+      "lastConnectionDate": "2025-11-17T22:21:05-0500",
+      "managed": false
+    },
+    {
+      "login": "ovindup",
+      "name": "Ovindu Peiris",
+      "active": true,
+      "email": "ovindup@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 2,
+      "local": true,
+      "externalIdentity": "ovindup",
+      "externalProvider": "sonarqube",
+      "avatar": "7a88548a415a65fa3065f6830786fa8b",
+      "lastConnectionDate": "2025-11-18T01:37:44-0500",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-11-18T01:37:44-0500"
+    },
+    {
+      "login": "pradeep",
+      "name": "Pradeep Munasinghe",
+      "active": true,
+      "email": "pradeep.m@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "pradeep",
+      "externalProvider": "sonarqube",
+      "avatar": "79367b26a9182adbb265a9e892a10a72",
+      "managed": false
+    },
+    {
+      "login": "pubudurat",
+      "name": "Pubudu Rathnayaka",
+      "active": true,
+      "email": "pubudurat@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 5,
+      "local": true,
+      "externalIdentity": "pubudurat",
+      "externalProvider": "sonarqube",
+      "avatar": "a82e353a6cc50f984a5b3a4519a18176",
+      "lastConnectionDate": "2025-11-04T02:07:02-0500",
+      "managed": false
+    },
+    {
+      "login": "pulind",
+      "name": "Pulin Disanayaka",
+      "active": true,
+      "email": "pulind@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "pulind",
+      "externalProvider": "sonarqube",
+      "avatar": "ce0e143fbdb6c403e373fb1e45f9b7da",
+      "managed": false
+    },
+    {
+      "login": "rangan",
+      "name": "Ranga Nishan",
+      "active": true,
+      "email": "ranga@itsys.sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "rangan",
+      "externalProvider": "sonarqube",
+      "avatar": "3dc2ad24602f6a6bd38de274140757d8",
+      "lastConnectionDate": "2024-12-13T00:31:14-0500",
+      "managed": false
+    },
+    {
+      "login": "ranjan",
+      "name": "Ranjan Christopher",
+      "active": true,
+      "email": "ranjanchristopher@sampath.lk",
+      "scmAccounts": [
+        "ranjanchristopher+sampath@sampath.lk"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "ranjan",
+      "externalProvider": "sonarqube",
+      "avatar": "b16eb28d7b74db66ee7579cc22a92c6e",
+      "lastConnectionDate": "2025-11-18T02:04:14-0500",
+      "managed": false
+    },
+    {
+      "login": "ridmap",
+      "name": "Ridma Pathirana",
+      "active": true,
+      "email": "ridma@itsys.sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "ridmap",
+      "externalProvider": "sonarqube",
+      "avatar": "b49053d06066c007d6ea20df34d7a794",
+      "lastConnectionDate": "2025-11-18T01:09:02-0500",
+      "managed": false
+    },
+    {
+      "login": "sahanw",
+      "name": "Sahan Wismitha",
+      "active": true,
+      "email": "ahanw@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sahanw",
+      "externalProvider": "sonarqube",
+      "avatar": "63a9307d7b04036f71caf00e044eb12b",
+      "managed": false
+    },
+    {
+      "login": "sameerau",
+      "name": "Sameera Ushantha",
+      "active": true,
+      "email": "sameerau@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sameerau",
+      "externalProvider": "sonarqube",
+      "avatar": "802049eac8a8dc355ebe7a6cd4865670",
+      "lastConnectionDate": "2025-07-21T02:04:05-0400",
+      "managed": false
+    },
+    {
+      "login": "samithpat",
+      "name": "Samith Pathirana",
+      "active": true,
+      "email": "samithpathirana@sampath.lk",
+      "scmAccounts": [
+        "samith.p@sits.lk"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "samithpat",
+      "externalProvider": "sonarqube",
+      "avatar": "432e61f42f7dc47d6e4ce3b2a64685f8",
+      "lastConnectionDate": "2025-11-13T11:09:13-0500",
+      "managed": false
+    },
+    {
+      "login": "sammanim",
+      "name": "Sammani Manawardhana",
+      "active": true,
+      "email": "sammanim@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sammanim",
+      "externalProvider": "sonarqube",
+      "avatar": "ffae9528287fd49ead0d71dde44780fa",
+      "lastConnectionDate": "2024-11-08T05:40:26-0500",
+      "managed": false
+    },
+    {
+      "login": "sampathab",
+      "name": "Sampath Abeysinghe",
+      "active": true,
+      "email": "sampathab@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sampathab",
+      "externalProvider": "sonarqube",
+      "avatar": "843e69c393c58f7000892a37d34ce448",
+      "lastConnectionDate": "2025-04-09T02:50:26-0400",
+      "managed": false
+    },
+    {
+      "login": "sandaruwanku",
+      "name": "Sameera Sandaruwan",
+      "active": true,
+      "email": "sandaruwankuruwage@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sandaruwanku",
+      "externalProvider": "sonarqube",
+      "avatar": "2445c5729bd9e5eccd6064fbda9377a6",
+      "lastConnectionDate": "2025-08-26T00:05:09-0400",
+      "managed": false
+    },
+    {
+      "login": "sandunj",
+      "name": "Sandun Jayathilake",
+      "active": true,
+      "email": "sandunj@sampth.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sandunj",
+      "externalProvider": "sonarqube",
+      "avatar": "122a6964ed58d04db96b868b0b665a79",
+      "lastConnectionDate": "2025-10-28T02:39:47-0400",
+      "managed": false
+    },
+    {
+      "login": "sashrikad",
+      "name": "Sashrika Dayani",
+      "active": true,
+      "email": "sashrikad@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sashrikad",
+      "externalProvider": "sonarqube",
+      "avatar": "a2385971343edb34bfc3116002fc8ff7",
+      "managed": false
+    },
+    {
+      "login": "shashia",
+      "name": "Shashi Asanka",
+      "active": true,
+      "email": "sasanka@itsys.sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "shashia",
+      "externalProvider": "sonarqube",
+      "avatar": "6774a15bbb9e7e2cffd94ce97ef17a60",
+      "lastConnectionDate": "2025-03-04T03:42:52-0500",
+      "managed": false
+    },
+    {
+      "login": "shehann",
+      "name": "Shehan Nishara",
+      "active": true,
+      "email": "shehann@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "shehann",
+      "externalProvider": "sonarqube",
+      "avatar": "407a09f7855df0021242d457ad40eea0",
+      "lastConnectionDate": "2025-03-06T23:51:42-0500",
+      "managed": false
+    },
+    {
+      "login": "sits-nipun",
+      "name": "Nipun Sathsara",
+      "active": true,
+      "email": "itsys_dev1@sampath.lk",
+      "scmAccounts": [
+        "sits_nipun_sathsara@sampathbankplc.onmicrosoft.com\t",
+        "âitsys_dev1@sampath.lk"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits-nipun",
+      "externalProvider": "sonarqube",
+      "avatar": "d3dc9c1758e23d460366df38147864f7",
+      "lastConnectionDate": "2025-08-03T23:35:48-0400",
+      "managed": false
+    },
+    {
+      "login": "sits-tharinduw",
+      "name": "Tharindu Weerasinghe",
+      "active": true,
+      "email": "tharinduwe@sampath.lk",
+      "scmAccounts": [
+        "itsys_dev3@sampath.lk",
+        "sits_tharinduwe@sampathad.net",
+        "tharindu.w@sits.lk",
+        "“[itsys_dev1@sampath.lk"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 2,
+      "local": true,
+      "externalIdentity": "sits-tharinduw",
+      "externalProvider": "sonarqube",
+      "avatar": "4c8dda115ba1d422782825f1d523cfd0",
+      "lastConnectionDate": "2025-10-30T23:50:14-0400",
+      "managed": false
+    },
+    {
+      "login": "sits_adithyaw",
+      "name": "Adithya Wijerathne",
+      "active": true,
+      "email": "shashith.a@sits.lk",
+      "scmAccounts": [
+        "sits_adithyaw@sampathbankplc.onmicrosoft.com"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 4,
+      "local": true,
+      "externalIdentity": "sits_adithyaw",
+      "externalProvider": "sonarqube",
+      "avatar": "4faeab741dd86713bf6d3b0cdf88d0ea",
+      "lastConnectionDate": "2025-10-28T05:10:56-0400",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-06-02T03:18:31-0400"
+    },
+    {
+      "login": "sits_amaly",
+      "name": "Amal Yasantha",
+      "active": true,
+      "email": "amal.l@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_amaly",
+      "externalProvider": "sonarqube",
+      "avatar": "6606b78e77324f4d2dfd8017a59062ad",
+      "lastConnectionDate": "2025-04-09T04:17:29-0400",
+      "managed": false
+    },
+    {
+      "login": "sits_chamodyar",
+      "name": "Chamodya Rumindi",
+      "active": true,
+      "email": "chamodya.r@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_chamodyar",
+      "externalProvider": "sonarqube",
+      "avatar": "1a7a271ebd6b6e72302411f2952d50bf",
+      "lastConnectionDate": "2025-08-26T23:45:56-0400",
+      "managed": false
+    },
+    {
+      "login": "sits_dulanjayas",
+      "name": "Dulanjaya Sandaruwan",
+      "active": true,
+      "email": "dulanjaya.s@sits.lk",
+      "scmAccounts": [
+        "sits_dulanjayas+sampath@sampathbankplc.onmicrosoft.com",
+        "sits_dulanjayas@sampathbankplc.onmicrosoft.com"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "sits_dulanjayas",
+      "externalProvider": "sonarqube",
+      "avatar": "08f96d0ec98041982e647817e2102ea3",
+      "lastConnectionDate": "2025-11-18T01:18:51-0500",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-11-17T01:26:04-0500"
+    },
+    {
+      "login": "sits_hansanin",
+      "name": "Hansani Rajapaksha",
+      "active": true,
+      "email": "hansani.n@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_hansanin",
+      "externalProvider": "sonarqube",
+      "avatar": "0800d011555f65abfef9c76eb432324f",
+      "lastConnectionDate": "2025-11-13T21:40:34-0500",
+      "managed": false
+    },
+    {
+      "login": "sits_hirushar",
+      "name": "Hirusha Ravishan",
+      "active": true,
+      "email": "itsys_dev7@sampath.lk",
+      "scmAccounts": [
+        "56668123+hirusha2577@users.noreply.github.com\t",
+        "itsys-dev7_sampath",
+        "itsys_dev7+sampath@sampath.lk"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_hirushar",
+      "externalProvider": "sonarqube",
+      "avatar": "d7597441a14982ef5f773a3f694cb966",
+      "lastConnectionDate": "2025-11-13T04:27:26-0500",
+      "managed": false
+    },
+    {
+      "login": "sits_ishani",
+      "name": "Ishan Illangakoon",
+      "active": true,
+      "email": "ishan.i@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_ishani",
+      "externalProvider": "sonarqube",
+      "avatar": "e44576ca17b8c10b8f552f8c911ca068",
+      "lastConnectionDate": "2025-10-10T06:25:38-0400",
+      "managed": false
+    },
+    {
+      "login": "sits_jinothg",
+      "name": "Jinoth Gunathilake",
+      "active": true,
+      "email": "jinod.g@sits.lk",
+      "scmAccounts": [
+        "“sits_jinothg@sampathbankplc.onmicrosoft.com”"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_jinothg",
+      "externalProvider": "sonarqube",
+      "avatar": "68e40ddbc8d53aa4b4a2f776c7e98e0a",
+      "lastConnectionDate": "2025-03-02T21:22:00-0500",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-03-02T21:22:00-0500"
+    },
+    {
+      "login": "sits_kasunh",
+      "name": "Kasun Hewage",
+      "active": true,
+      "email": "itsys_dev2@sampath.lk",
+      "scmAccounts": [
+        "sits_kasunh@sampathbankplc.onmicrosoft.com"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "sits_kasunh",
+      "externalProvider": "sonarqube",
+      "avatar": "ed565ce5f5570e3585fd0040a3d64c73",
+      "lastConnectionDate": "2025-11-06T01:15:38-0500",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-11-06T01:15:38-0500"
+    },
+    {
+      "login": "sits_lahiruw",
+      "name": "Lahiru Weerasinghe",
+      "active": true,
+      "email": "lahiru.w@sits.lk",
+      "scmAccounts": [
+        "weerasinghelahiru1999@gmail.com"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "sits_lahiruw",
+      "externalProvider": "sonarqube",
+      "avatar": "fd1096672d23c0e72dfdd3b2ef483e06",
+      "lastConnectionDate": "2024-12-12T17:38:32-0500",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2024-12-12T17:38:32-0500"
+    },
+    {
+      "login": "sits_namalp",
+      "name": "Namal Pathum",
+      "active": true,
+      "email": "itsys_dev8@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_namalp",
+      "externalProvider": "sonarqube",
+      "avatar": "c8d2a7fec400c44baf7a711258756d5a",
+      "managed": false
+    },
+    {
+      "login": "sits_nirunid",
+      "name": "Niruni Dassanayake",
+      "active": true,
+      "email": "niruni.d@sits.lk",
+      "scmAccounts": [
+        "sits_nirunid@sampathbankplc.onmicrosoft.com"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "sits_nirunid",
+      "externalProvider": "sonarqube",
+      "avatar": "5bfc41e3450eb2b7edd1e5520ff85873",
+      "lastConnectionDate": "2025-09-09T04:07:06-0400",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-05-08T01:52:39-0400"
+    },
+    {
+      "login": "sits_nisals",
+      "name": "Nisal Yapa",
+      "active": true,
+      "email": "nisal.y@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_nisals",
+      "externalProvider": "sonarqube",
+      "avatar": "c7ce680638154b9822a489b077b5bec1",
+      "lastConnectionDate": "2025-11-06T22:19:05-0500",
+      "managed": false
+    },
+    {
+      "login": "sits_oshadhia",
+      "name": "Oshadhi Amarasingha",
+      "active": true,
+      "email": "oshadhi.a@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_oshadhia",
+      "externalProvider": "sonarqube",
+      "avatar": "ad406a14168c5bc0cd7c5e85b0a67b29",
+      "lastConnectionDate": "2025-03-21T08:25:36-0400",
+      "managed": false
+    },
+    {
+      "login": "sits_pasanc",
+      "name": "Pasan Chamikara",
+      "active": true,
+      "email": "pasan.c@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "sits_pasanc",
+      "externalProvider": "sonarqube",
+      "avatar": "e47923baecf6cf4c47c10cf6f6807c1d",
+      "lastConnectionDate": "2025-11-18T00:35:50-0500",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-07-15T02:36:22-0400"
+    },
+    {
+      "login": "sits_pasinduj",
+      "name": "Pasindu Jayasinghe",
+      "active": true,
+      "email": "itsys_dev@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_pasinduj",
+      "externalProvider": "sonarqube",
+      "avatar": "fc1f12dce2844640e6f08910a67f8413",
+      "lastConnectionDate": "2025-10-07T06:41:56-0400",
+      "managed": false
+    },
+    {
+      "login": "sits_pradeepm",
+      "name": "Pradeep Munasinghe",
+      "active": true,
+      "email": "pradeep.m@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_pradeepm",
+      "externalProvider": "sonarqube",
+      "avatar": "79367b26a9182adbb265a9e892a10a72",
+      "lastConnectionDate": "2025-05-02T04:05:37-0400",
+      "managed": false
+    },
+    {
+      "login": "sits_rasikau",
+      "name": "Rasika Udawaththa",
+      "active": true,
+      "email": "rasika.u@sits.lk",
+      "scmAccounts": [
+        "itsys_dev11@sampath.lk",
+        "rudawaththa@gmail.com"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "sits_rasikau",
+      "externalProvider": "sonarqube",
+      "avatar": "d4c3d5bb557afad1a4f7508dc7a2cb3b",
+      "lastConnectionDate": "2025-11-16T22:14:58-0500",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-11-16T22:14:58-0500"
+    },
+    {
+      "login": "sits_rusirub",
+      "name": "Rusiru Basnayake",
+      "active": true,
+      "email": "rusiru.b@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_rusirub",
+      "externalProvider": "sonarqube",
+      "avatar": "aa793bcc4e7eef304ab2c26f2ac9a7d8",
+      "lastConnectionDate": "2025-11-10T01:22:05-0500",
+      "managed": false
+    },
+    {
+      "login": "sits_samodn",
+      "name": "Samod Priyankara",
+      "active": true,
+      "email": "itsys_dev12@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_samodn",
+      "externalProvider": "sonarqube",
+      "avatar": "040ade57badbd41408dc6117db8d1f87",
+      "lastConnectionDate": "2025-11-17T03:56:07-0500",
+      "managed": false
+    },
+    {
+      "login": "sits_sasithd",
+      "name": "Sasith Devasurendra",
+      "active": true,
+      "email": "sasith.d@sits.lk",
+      "scmAccounts": [
+        "sits_sasithd@sampathbankplc.onmicrosoft.com"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_sasithd",
+      "externalProvider": "sonarqube",
+      "avatar": "03f5ccfc5e1e69609fce66ebfa25be0a",
+      "lastConnectionDate": "2025-11-13T23:19:59-0500",
+      "managed": false
+    },
+    {
+      "login": "sits_shehand",
+      "name": "Shehan Chanuka",
+      "active": true,
+      "email": "shehan.c@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_shehand",
+      "externalProvider": "sonarqube",
+      "avatar": "252a59385df4cbff56149d763cd3b1c0",
+      "lastConnectionDate": "2025-09-11T06:26:05-0400",
+      "managed": false
+    },
+    {
+      "login": "sits_sineths",
+      "name": "Sineth Senarathn",
+      "active": true,
+      "email": "sineth.s@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_sineths",
+      "externalProvider": "sonarqube",
+      "avatar": "ac8dd7e126a3380c0629405d72696683",
+      "lastConnectionDate": "2025-06-03T23:15:57-0400",
+      "managed": false
+    },
+    {
+      "login": "sits_sohanh",
+      "name": "Sohan Liayange",
+      "active": true,
+      "email": "sohan.l@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_sohanh",
+      "externalProvider": "sonarqube",
+      "avatar": "f196c47ae42a825768f1a1ca987ba27b",
+      "lastConnectionDate": "2025-11-12T00:02:52-0500",
+      "managed": false
+    },
+    {
+      "login": "sits_ushana",
+      "name": "Ushan Anuka",
+      "active": true,
+      "email": "ushan.a@sits.lk",
+      "scmAccounts": [
+        "sits_ushana@sampathbankplc.onmicrosoft.com\t"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "sits_ushana",
+      "externalProvider": "sonarqube",
+      "avatar": "f257e6e9f1a01841ce4ac9954ff02d3f",
+      "lastConnectionDate": "2025-11-18T01:45:37-0500",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-11-18T01:45:37-0500"
+    },
+    {
+      "login": "sits_uthpalaa",
+      "name": "Uthpala Aththanayaka",
+      "active": true,
+      "email": "itsys_dev6@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_uthpalaa",
+      "externalProvider": "sonarqube",
+      "avatar": "4656a6a141b10bd8e1b9a5895d2b90fe",
+      "lastConnectionDate": "2024-11-08T04:49:25-0500",
+      "managed": false
+    },
+    {
+      "login": "sits_vinalm",
+      "name": "Vinal Munasinghe",
+      "active": true,
+      "email": "vinal.m@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_vinalm",
+      "externalProvider": "sonarqube",
+      "avatar": "e50fcb96830df535e34ae5b8aa50cd33",
+      "lastConnectionDate": "2025-09-11T22:56:23-0400",
+      "managed": false
+    },
+    {
+      "login": "sits_vinull",
+      "name": "Vinul Lewangama",
+      "active": true,
+      "email": "vinul.l@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_vinull",
+      "externalProvider": "sonarqube",
+      "avatar": "d296a5df6c9590b256b7232d5a8db397",
+      "lastConnectionDate": "2025-08-11T05:19:57-0400",
+      "managed": false
+    },
+    {
+      "login": "sits_yasarad",
+      "name": "D.A.Yasara Devindi",
+      "active": true,
+      "email": "yasara.d@sits.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sits_yasarad",
+      "externalProvider": "sonarqube",
+      "avatar": "6bd03e3794cc196df176e51ecbc3a10a",
+      "lastConnectionDate": "2025-09-12T07:24:18-0400",
+      "managed": false
+    },
+    {
+      "login": "sivalingarajahr",
+      "name": "Rishikopan Sivalingarajah",
+      "active": true,
+      "email": "sivalingarajahr@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "sivalingarajahr",
+      "externalProvider": "sonarqube",
+      "avatar": "6ba1c2600ced5834344df601efaaefb6",
+      "lastConnectionDate": "2025-11-18T00:28:47-0500",
+      "managed": false
+    },
+    {
+      "login": "tecciance_jayarajith",
+      "name": "Jayaragitha Gajanayake",
+      "active": true,
+      "email": "itsys_ext_dev1@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "tecciance_jayarajith",
+      "externalProvider": "sonarqube",
+      "avatar": "30a054eec8b566ee549f0fb86a80189f",
+      "lastConnectionDate": "2025-11-17T21:22:20-0500",
+      "managed": false
+    },
+    {
+      "login": "tecciance_sachindap",
+      "name": "Sachinda Pamod",
+      "active": true,
+      "email": "tecciance_sachindap@sampathbankplc.onmicrosoft.com",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "tecciance_sachindap",
+      "externalProvider": "sonarqube",
+      "avatar": "07987996a72e13b8004c1097f748eba3",
+      "lastConnectionDate": "2025-07-30T23:57:46-0400",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-07-30T05:23:18-0400"
+    },
+    {
+      "login": "tharushile",
+      "name": "Tharushi Legrand",
+      "active": true,
+      "email": "tharushile@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 2,
+      "local": true,
+      "externalIdentity": "tharushile",
+      "externalProvider": "sonarqube",
+      "avatar": "5b39a5375897dce9c0e40e54e40bdf0c",
+      "lastConnectionDate": "2025-08-13T23:45:58-0400",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-02-20T05:45:03-0500"
+    },
+    {
+      "login": "thilinab",
+      "name": "Thilina Palamakumbura",
+      "active": true,
+      "email": "thilinab@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 3,
+      "local": true,
+      "externalIdentity": "thilinab",
+      "externalProvider": "sonarqube",
+      "avatar": "d81b52c1046ed5e542a5f456c0a007f2",
+      "lastConnectionDate": "2025-11-18T01:33:18-0500",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-11-18T01:33:18-0500"
+    },
+    {
+      "login": "thilinin",
+      "name": "Thilini Narmada",
+      "active": true,
+      "email": "thilini@itsys.sampath.lk",
+      "scmAccounts": [
+        "narmada@itsys.sampath.lk"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "thilinin",
+      "externalProvider": "sonarqube",
+      "avatar": "47c0ea0e67a8d9d20eee089fce3fc94c",
+      "lastConnectionDate": "2025-07-28T01:34:29-0400",
+      "managed": false
+    },
+    {
+      "login": "udaraman",
+      "name": "Udara Manathunga",
+      "active": true,
+      "email": "udaraman@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "udaraman",
+      "externalProvider": "sonarqube",
+      "avatar": "c6d45ab2975d64190855e1e56a247683",
+      "lastConnectionDate": "2025-11-04T03:21:57-0500",
+      "managed": false
+    },
+    {
+      "login": "udulat",
+      "name": "Udula Tharupathi",
+      "active": true,
+      "email": "udulat@sampath.lk",
+      "scmAccounts": [
+        "udulat@int.sampath.lk"
+      ],
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "udulat",
+      "externalProvider": "sonarqube",
+      "avatar": "2d29ce268ce937b568f146265d691edf",
+      "lastConnectionDate": "2025-10-13T23:50:42-0400",
+      "managed": false
+    },
+    {
+      "login": "umeshi",
+      "name": "Umesh Ishara",
+      "active": true,
+      "email": "umeshi@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 1,
+      "local": true,
+      "externalIdentity": "umeshi",
+      "externalProvider": "sonarqube",
+      "avatar": "b8e440b920f87b18ade975b876c2a433",
+      "lastConnectionDate": "2025-10-13T01:50:48-0400",
+      "managed": false,
+      "sonarLintLastConnectionDate": "2025-03-04T04:46:01-0500"
+    },
+    {
+      "login": "ushanj",
+      "name": "Ushan Jayasooriya",
+      "active": true,
+      "email": "ushanj@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "ushanj",
+      "externalProvider": "sonarqube",
+      "avatar": "f1848c09c55c5d4e42f660304ad17782",
+      "lastConnectionDate": "2025-10-28T04:09:19-0400",
+      "managed": false
+    },
+    {
+      "login": "warunikap",
+      "name": "Warunika Pathirana",
+      "active": true,
+      "email": "warunikapathirana@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "warunikap",
+      "externalProvider": "sonarqube",
+      "avatar": "76a524ff050b2ff30e85f10cab53918f",
+      "managed": false
+    },
+    {
+      "login": "yasash",
+      "name": "Yasas Hewa Mallikage",
+      "active": true,
+      "email": "yasash@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "yasash",
+      "externalProvider": "sonarqube",
+      "avatar": "0a502c2b1168e452fed9bdcae7a5d58d",
+      "lastConnectionDate": "2025-05-20T23:50:48-0400",
+      "managed": false
+    },
+    {
+      "login": "yomeshm",
+      "name": "Yomesh Morapitiya",
+      "active": true,
+      "email": "yomeshm@sampath.lk",
+      "groups": [
+        "sonar-users"
+      ],
+      "tokensCount": 0,
+      "local": true,
+      "externalIdentity": "yomeshm",
+      "externalProvider": "sonarqube",
+      "avatar": "4808f76f4304fcfed217326750cf6cb9",
+      "lastConnectionDate": "2025-09-23T09:40:35-0400",
+      "managed": false
+    }
+  ]
+}

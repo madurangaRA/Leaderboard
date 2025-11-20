@@ -101,17 +101,4 @@ public class KlocCalculationService {
 
         return totalKloc.setScale(2, RoundingMode.HALF_UP);
     }
-
-    /**
-     * Alternative: Calculate developer KLOC using SonarQube SCM data
-     * This is more accurate but requires the SCM plugin to be configured in SonarQube
-     */
-    public BigDecimal getDeveloperKlocFromScm(Developer developer, LocalDate month) {
-        // This would require additional SonarQube API calls to the SCM endpoint
-        // Example endpoint: /api/measures/component?component=PROJECT_KEY&metricKeys=ncloc&author=DEVELOPER
-        // SonarQube doesn't directly expose per-author KLOC, so we use the issue-based approach above
-
-        log.warn("SCM-based KLOC calculation not implemented. Using issue-based calculation instead.");
-        return getDeveloperKloc(developer, month);
-    }
 }

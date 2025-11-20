@@ -37,7 +37,7 @@ public class LeaderboardSchedulerService {
      * Calculates rankings for the previous month
      */
     @Scheduled(cron = "0 0 3 1 * ?")
-    public void monthlyRankingCalculation() {
+    public void     monthlyRankingCalculation() {
         LocalDate previousMonth = LocalDate.now().minusMonths(1);
         log.info("Starting scheduled ranking calculation for {}", previousMonth);
 
@@ -49,6 +49,4 @@ public class LeaderboardSchedulerService {
         }
     }
 
-    // Weekly refresh removed - we only calculate for completed months
-    // If you need current month tracking, implement a separate feature
 }

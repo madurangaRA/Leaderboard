@@ -67,7 +67,7 @@ public class RankingCalculationService {
             ranking.setViolationsIntroduced(introduced.intValue());
             ranking.setDefectTerminatorScore(resolved.intValue() - introduced.intValue());
 
-            // Set KLOC to zero for developers (not tracking individual KLOC)
+            // todo ranking
             ranking.setTotalKloc(BigDecimal.ZERO);
 
             // Calculate Code Rock (Total open bugs - lower is better)

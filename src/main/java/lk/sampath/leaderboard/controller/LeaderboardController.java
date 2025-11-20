@@ -1,5 +1,7 @@
 package lk.sampath.leaderboard.controller;
 
+import lk.sampath.leaderboard.repository.IndividualRankingRepository;
+import lk.sampath.leaderboard.repository.ProjectRankingRepository;
 import lk.sampath.leaderboard.services.RankingCalculationService;
 import lk.sampath.leaderboard.services.SonarQubeSyncService;
 import lk.sampath.leaderboard.services.LeaderboardSchedulerService;
@@ -21,10 +23,9 @@ public class LeaderboardController {
     private final SonarQubeSyncService syncService;
     private final RankingCalculationService rankingService;
     private final LeaderboardSchedulerService schedulerService;
-    private final lk.sampath.leaderboard.repository.IndividualRankingRepository individualRankingRepository;
-    private final lk.sampath.leaderboard.repository.ProjectRankingRepository projectRankingRepository;
+    private final IndividualRankingRepository individualRankingRepository;
+    private final ProjectRankingRepository projectRankingRepository;
 
-    // ==================== Manual Job Triggers ====================
 
     /**
      * Manually trigger the monthly data sync job
@@ -87,7 +88,6 @@ public class LeaderboardController {
         }
     }
 
-    // ==================== Custom Date Operations ====================
 
     /**
      * Manually trigger data sync for a specific month
