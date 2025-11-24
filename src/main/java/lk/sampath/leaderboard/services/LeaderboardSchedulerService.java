@@ -21,7 +21,7 @@ public class LeaderboardSchedulerService {
      */
     @Scheduled(cron = "0 0 2 1 * ?")
     public void monthlyDataSync() {
-        LocalDate previousMonth = LocalDate.now().minusMonths(1);
+        LocalDate previousMonth = LocalDate.now().minusMonths(1).withDayOfMonth(1);
         log.info("Starting scheduled monthly sync for {}", previousMonth);
 
         try {
@@ -38,7 +38,7 @@ public class LeaderboardSchedulerService {
      */
     @Scheduled(cron = "0 0 3 1 * ?")
     public void     monthlyRankingCalculation() {
-        LocalDate previousMonth = LocalDate.now().minusMonths(1);
+        LocalDate previousMonth = LocalDate.now().minusMonths(1).withDayOfMonth(1);
         log.info("Starting scheduled ranking calculation for {}", previousMonth);
 
         try {

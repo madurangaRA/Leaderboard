@@ -4,7 +4,7 @@ import lk.sampath.leaderboard.entity.Developer;
 import lk.sampath.leaderboard.repository.DeveloperRepository;
 import lk.sampath.leaderboard.services.DeveloperService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +15,10 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @Slf4j
+@RequiredArgsConstructor
 public class DeveloperServiceImpl implements DeveloperService {
 
-    @Autowired
-    private DeveloperRepository developerRepository;
+    private final DeveloperRepository developerRepository;
 
     @Override
     @Cacheable(value = "developers", key = "#authorKey")

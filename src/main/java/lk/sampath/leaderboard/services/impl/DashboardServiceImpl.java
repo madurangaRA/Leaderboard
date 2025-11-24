@@ -10,7 +10,7 @@ import lk.sampath.leaderboard.repository.IndividualRankingRepository;
 import lk.sampath.leaderboard.repository.ProjectRankingRepository;
 import lk.sampath.leaderboard.services.DashboardService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -27,23 +27,22 @@ import java.util.Arrays;
 @Service
 @Transactional(readOnly = true)
 @Slf4j
+@RequiredArgsConstructor
 public class DashboardServiceImpl implements DashboardService {
 
-    @Autowired
-    private IndividualRankingRepository individualRankingRepository;
+    private final IndividualRankingRepository individualRankingRepository;
 
-    @Autowired
-    private ProjectRankingRepository projectRankingRepository;
+    private final ProjectRankingRepository projectRankingRepository;
 
-    @Autowired
-    private DashboardMapper dashboardMapper;
+    private final DashboardMapper dashboardMapper;
 
     @Override
     @Cacheable(value = "dashboard", unless = "#result == null")
     public DashboardDTO getDashboardData() {
         log.info("Fetching dashboard data");
         // use a date in the previous month (any day) as the period reference
-        LocalDate currentPeriod = LocalDate.now().minusMonths(1);
+        // normalize to first day of previous month to match stored rankingPeriod (month-based)
+        LocalDate currentPeriod = LocalDate.now().minusMonths(1).withDayOfMonth(1);
 
         try {
             List<IndividualRanking> defectTerminators = individualRankingRepository.findTop3DefectTerminators(currentPeriod);
@@ -56,6 +55,8 @@ public class DashboardServiceImpl implements DashboardService {
             List<ProjectRanking> projectCodeRocks = projectRankingRepository.findTop3CodeRock(currentPeriod);
             List<ProjectRanking> projectCodeShields = projectRankingRepository.findTop3CodeShield(currentPeriod);
             List<ProjectRanking> projectCraftsmen = projectRankingRepository.findTop3Craftsman(currentPeriod);
+
+            log.info(defectTerminators.toString());
 
             DashboardDTO dashboard = DashboardDTO.builder()
                     .defectTerminator(getFirstOrNull(defectTerminators, "defect_terminator", "🛡️"))

@@ -1,7 +1,5 @@
 package lk.sampath.leaderboard.controller;
 
-import lk.sampath.leaderboard.repository.IndividualRankingRepository;
-import lk.sampath.leaderboard.repository.ProjectRankingRepository;
 import lk.sampath.leaderboard.services.RankingCalculationService;
 import lk.sampath.leaderboard.services.SonarQubeSyncService;
 import lk.sampath.leaderboard.services.LeaderboardSchedulerService;
@@ -18,13 +16,11 @@ import java.util.Map;
 @RequestMapping("/sync")
 @RequiredArgsConstructor
 @Slf4j
-public class LeaderboardController {
+public class SyncController {
 
     private final SonarQubeSyncService syncService;
     private final RankingCalculationService rankingService;
     private final LeaderboardSchedulerService schedulerService;
-    private final IndividualRankingRepository individualRankingRepository;
-    private final ProjectRankingRepository projectRankingRepository;
 
 
     /**
@@ -43,7 +39,7 @@ public class LeaderboardController {
         } catch (Exception e) {
             log.error("Error during manual monthly sync job", e);
             return ResponseEntity.internalServerError()
-                    .body(Map.of("error", e.getMessage()));
+                    .body(Map.of("error", "Internal server error"));
         }
     }
 
@@ -63,7 +59,7 @@ public class LeaderboardController {
         } catch (Exception e) {
             log.error("Error during manual monthly ranking job", e);
             return ResponseEntity.internalServerError()
-                    .body(Map.of("error", e.getMessage()));
+                    .body(Map.of("error", "Internal server error"));
         }
     }
 
@@ -84,7 +80,7 @@ public class LeaderboardController {
         } catch (Exception e) {
             log.error("Error during manual complete monthly job", e);
             return ResponseEntity.internalServerError()
-                    .body(Map.of("error", e.getMessage()));
+                    .body(Map.of("error", "Internal server error"));
         }
     }
 
@@ -105,7 +101,7 @@ public class LeaderboardController {
         } catch (Exception e) {
             log.error("Error during manual sync", e);
             return ResponseEntity.internalServerError()
-                    .body(Map.of("error", e.getMessage()));
+                    .body(Map.of("error", "Internal server error"));
         }
     }
 
@@ -125,7 +121,7 @@ public class LeaderboardController {
         } catch (Exception e) {
             log.error("Error during manual ranking calculation", e);
             return ResponseEntity.internalServerError()
-                    .body(Map.of("error", e.getMessage()));
+                    .body(Map.of("error", "Internal server error"));
         }
     }
 }

@@ -190,10 +190,9 @@ public class ImportFromJsonService {
                     issue.setLineNumber(detail.getLine());
                     issue.setMessage(detail.getMessage());
 
-                    Integer effortMinutes = detail.getEffort() != null
-                            ? Integer.valueOf(detail.getEffort())
-                            : parseEffort(detail.getEffort());
-                    issue.setEffortMinutes(effortMinutes);
+                    // detail.getEffort may contain values like "10min", "1h" or numeric strings.
+                    // Always use parseEffort which handles both formats safely.
+                    issue.setEffortMinutes(parseEffort(detail.getEffort()));
 
                     OffsetDateTime odtCreated = tryParseOffsetDateTime(
                             firstNonNull(detail.getCreationDate(), detail.getCreationDate(), detail.getUpdateDate())
@@ -430,3 +429,4 @@ public class ImportFromJsonService {
         }
         return minutes;
     }}
+
